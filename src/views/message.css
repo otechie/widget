@@ -1,21 +1,102 @@
-.js-widget-overlay{
-    z-index: 10001; 
-    position: fixed;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    opacity: 0.8;
-    background-color: #000;
+@font-face {
+    font-family: 'gibson-semibold';
+    src: url('https://cdn.otechie.com/fonts/gibson/gibson_semibold_macroman/gibson-semibold-webfont.woff2') format('woff2'),
+    url('https://cdn.otechie.com/fonts/gibson/gibson_semibold_macroman/gibson-semibold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
-.js-widget-dialog{
+
+@font-face {
+    font-family: 'gibson-regular';
+    src: url('https://cdn.otechie.com/fonts/gibson/gibson_regular_macroman/gibson-regular-webfont.woff2') format('woff2'),
+    url('https://cdn.otechie.com/fonts/gibson/gibson_regular_macroman/gibson-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.js-widget-overlay {
+    z-index: 10001;
     position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.otechie-widget-wrapper {
+    z-index: 10001;
+    position: fixed;
+}
+
+.otechie-widget-chat {
+    font-family: gibson-regular, sans-serif;
     z-index: 10002;
-    background: #fff;
-    left: 50%;
-    top: 30%;
-    margin: 0 0 0 -120px;
-    width: 200px;
-    padding: 10px 20px;
-    border: solid 1px #333
+    position: absolute;
+    bottom: 32px;
+    right: 32px;
+    height: 52px;
+    width: 52px;
+    border-radius: 12px;
+    background-color: #80bdff;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+    cursor: pointer;
+}
+
+.otechie-widget-chatbox {
+    z-index: 10002;
+    position: absolute;
+    bottom: 100px;
+    right: 32px;
+    width: 376px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 7px 14px rgba(50, 50, 93, .1), 0 3px 6px rgba(0, 0, 0, .08);
+    overflow: hidden;
+}
+
+.otechie-widget-textarea {
+    font-family: gibson-regular, sans-serif;
+    width: calc(100% - 24px);
+    border: none;
+    outline: none;
+    font-size: 16px;
+    resize: none;
+    border-radius: 0.25rem;
+    margin: 12px;
+}
+
+.otechie-widget-avatar {
+    margin-top: 8px;
+    border-radius: 50%;
+    border: 2px white solid;
+}
+
+.otechie-widget-top {
+    font-family: gibson-regular, sans-serif;
+    background-color: #549DFF;
+    padding: 12px;
+}
+
+.ow-workspace-name {
+    font-family: gibson-semibold, sans-serif;
+    margin: 0;
+    color: white;
+    font-size: 22px;
+}
+
+.ow-workspace-rate {
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 6px;
+    margin-bottom: 6px;
+}
+
+.ow-powered-by-wrapper {
+    text-align: right;
+    padding: 2px 6px;
+}
+
+.ow-powered-by {
+    font-family: gibson-regular, sans-serif;
+    font-size: 11px;
+    color: darkgray;
 }
