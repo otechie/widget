@@ -18,7 +18,7 @@ jobs:
           command: yarn build
       - run:
           name: Upload static
-          command: aws s3 sync /home/circleci/repo/dist/widget.js s3://widget.otechie.com/ --delete --acl public-read
+          command: aws s3 sync /home/circleci/repo/dist/ s3://widget.otechie.com/ --delete --acl public-read
 
 workflows:
   deploy:
