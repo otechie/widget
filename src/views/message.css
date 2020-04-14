@@ -43,7 +43,15 @@
     cursor: pointer;
 }
 
-.ow-icon {
+.otechie-widget-chat:hover {
+    background-color: #4887dc;
+}
+
+.otechie-widget-x {
+    margin: 12px 8px 16px 16px;
+}
+
+.otechie-widget-icon {
     margin: 10px;
 }
 
@@ -89,7 +97,7 @@
 
 .otechie-widget-avatar {
     border-radius: 50%;
-    border: 2px white solid;
+    /*border: 2px white solid;*/
 }
 
 .otechie-widget-top {
@@ -99,26 +107,26 @@
     padding: 12px;
 }
 
-.ow-workspace-name {
+.otechie-widget-workspace-name {
     font-family: gibson-semibold, sans-serif;
     margin: 0;
-    margin-top: 8px;
+    margin-top: 6px;
     color: white;
     font-size: 22px;
 }
 
-.ow-workspace-rate {
+.otechie-widget-workspace-rate {
     color: rgba(255, 255, 255, 0.7);
     margin-top: 6px;
     margin-bottom: 6px;
 }
 
-.ow-powered-by-wrapper {
+.otechie-widget-powered-by-wrapper {
     text-align: right;
     padding: 2px 6px;
 }
 
-.ow-powered-by {
+.otechie-widget-powered-by {
     font-family: gibson-regular, sans-serif;
     font-size: 11px;
     color: darkgray;
