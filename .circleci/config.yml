@@ -15,10 +15,10 @@ jobs:
           command: yarn
       - run:
           name: Build application
-          command: yarn build
+          command: yarn build-release
       - run:
           name: Upload static
-          command: aws s3 sync /home/circleci/repo/dist/ s3://widget.otechie.com/ --delete --acl public-read
+          command: aws s3 sync /home/circleci/repo/dist/ s3://widget.otechie.com/dist --delete --acl public-read
 
 workflows:
   deploy:

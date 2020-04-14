@@ -17,11 +17,11 @@ module.exports = (env) => {
         },
         plugins: isDevBuild
             ? [new webpack.SourceMapDevToolPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])]
-            : [new webpack.optimize.UglifyJsPlugin()],
+            : [new webpack.optimize.UglifyJsPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])],
         module: {
             rules: [
                 { test: /\.html$/i, use: 'html-loader' },
-                { test: /\.css$/i, use: ['style-loader', 'css-loader' + (isDevBuild ? '' : '?minimize')] },
+                { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
                 {
                     test: /\.js$/i, exclude: /node_modules/, use: {
                         loader: 'babel-loader',
