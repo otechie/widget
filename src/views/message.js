@@ -14,8 +14,8 @@ let API_URL;
 let WEB_URL;
 
 export function show () {
-  API_URL = window.ow.configurations.dev ? 'http://api.dev-otechie.com' : 'http://api.otechie.com'
-  WEB_URL = window.ow.configurations.dev ? 'http://dev-otechie.com' : 'http://otechie.com'
+  API_URL = window.ow.configurations.dev ? 'https://api.dev-otechie.com' : 'https://api.otechie.com'
+  WEB_URL = window.ow.configurations.dev ? 'https://dev-otechie.com' : 'https://otechie.com'
 
   // append elements to body
   body = document.getElementsByTagName('body')[0];
