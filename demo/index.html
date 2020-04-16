@@ -3,6 +3,9 @@
     <title>Demo page of the widget</title>
 </head>
 <body>
+    <button>
+        Test
+    </button>
     <h1>Lorem ipsum dolor sit amet augue</h1>
     <h2>Fusce gravida vehicula vestibulum tortor pulvinar</h2>
     <p>Orci purus ante excepteur nunc nascetur rhoncus taciti ut. Ornare vitae sed. Amet suspendisse integer rutrum aliquet
@@ -68,7 +71,7 @@
             w['Otechie-Widget']=o;w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments) };
             js = d.createElement(s), fjs = d.getElementsByTagName(s)[0];
             js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
-        }(window, document, 'script', 'ow', `https://widget.otechie.com/widget.js?t=${new Date().getTime()}`));
+        }(window, document, 'script', 'ow', `./widget.js`));
         ow('init', { username: 'nuxt', dev: true });
     </script>
 </body>
