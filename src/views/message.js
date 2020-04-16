@@ -14,8 +14,8 @@ let API_URL;
 let WEB_URL;
 
 export function show () {
-  API_URL = window.ow.configurations.dev ? 'https://api.dev-otechie.com' : 'https://api.otechie.com'
-  WEB_URL = window.ow.configurations.dev ? 'https://dev-otechie.com' : 'https://otechie.com'
+  API_URL = window.ow.configurations.dev ? 'http://localhost:8000' : 'https://api.otechie.com'
+  WEB_URL = window.ow.configurations.dev ? 'http://localhost:8080' : 'https://otechie.com'
 
   // append elements to body
   body = document.getElementsByTagName('body')[0];
@@ -54,7 +54,8 @@ export function toggle () {
 
 export function keypress (event) {
   if (event.keyCode === 13) {
+    event.preventDefault();
     console.log('input.textContent', textarea.value)
-    window.location.href = `${WEB_URL}/${workspace.username}?message=${textarea.value}`
+    window.location.href = `${WEB_URL}/${workspace.username}/start?message=${textarea.value}`
   }
 }
