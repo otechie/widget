@@ -21,7 +21,5 @@
     "webpack": "^3.8.1",
     "webpack-dev-server": "^2.9.4"
   },
-  "dependencies": {
-    "axios": "^0.19.2"
-  }
+  "dependencies": {}
 }

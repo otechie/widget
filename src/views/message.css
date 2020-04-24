@@ -1,30 +1,9 @@
-@font-face {
-    font-family: 'gibson-semibold';
-    src: url('https://cdn.otechie.com/fonts/gibson/gibson_semibold_macroman/gibson-semibold-webfont.woff2') format('woff2'),
-    url('https://cdn.otechie.com/fonts/gibson/gibson_semibold_macroman/gibson-semibold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'gibson-regular';
-    src: url('https://cdn.otechie.com/fonts/gibson/gibson_regular_macroman/gibson-regular-webfont.woff2') format('woff2'),
-    url('https://cdn.otechie.com/fonts/gibson/gibson_regular_macroman/gibson-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-.otechie-widget-wrapper {
-    z-index: 10001;
-    position: fixed;
-}
-
 .otechie-widget-chat {
     font-family: gibson-regular, sans-serif;
     z-index: 10002;
-    position: absolute;
-    bottom: 32px;
-    right: 32px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
     height: 52px;
     width: 52px;
     border-radius: 12px;
@@ -46,78 +25,15 @@
     margin: 10px;
 }
 
-.otechie-widget-chatbox {
+.otechie-widget-iframe {
     z-index: 10002;
-    position: absolute;
+    position: fixed;
     bottom: 100px;
-    right: 32px;
+    right: 20px;
     width: 376px;
+    height: calc(100% - 120px);
+    box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
     border-radius: 8px;
-    background-color: white;
-    box-shadow: 0 4px 23px 0 rgba(0, 0, 0, .09);
-    overflow: hidden;
-}
-
-.otechie-widget-textarea {
-    font-family: gibson-regular, sans-serif;
-    width: calc(100% - 24px);
     border: none;
-    outline: none;
-    font-size: 16px;
-    resize: none;
-    border-radius: 0.25rem;
-    margin: 12px;
-    color: #535353;
-}
-
-.otechie-widget-textarea::-webkit-input-placeholder { /* WebKit browsers */
-    color: darkgray;
-}
-
-.otechie-widget-textarea:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: darkgray;
-}
-
-.otechie-widget-textarea::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color: darkgray;
-}
-
-.otechie-widget-textarea:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color: darkgray;
-}
-
-.otechie-widget-avatar {
-    border-radius: 50%;
-}
-
-.otechie-widget-top {
-    position: relative;
-    font-family: gibson-regular, sans-serif;
-    background-color: #549DFF;
-    padding: 12px;
-}
-
-.otechie-widget-workspace-name {
-    font-family: gibson-semibold, sans-serif;
-    margin: 0;
-    margin-top: 6px;
-    color: white;
-    font-size: 22px;
-}
-
-.otechie-widget-workspace-rate {
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 6px;
-    margin-bottom: 6px;
-}
-
-.otechie-widget-powered-by-wrapper {
-    text-align: right;
-    padding: 2px 6px;
-}
-
-.otechie-widget-powered-by {
-    font-family: gibson-regular, sans-serif;
-    font-size: 11px;
-    color: darkgray;
+    background-color: white;
 }
