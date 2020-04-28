@@ -5,10 +5,8 @@ let elements = [];
 let chat;
 let iframe;
 let body;
-let textarea;
 let x;
 let icon;
-let workspace = {};
 let API_URL;
 let WEB_URL;
 
@@ -38,5 +36,5 @@ export function toggle () {
   icon.hidden = !icon.hidden
   x.hidden = !x.hidden
   chat.active = true
-  iframe.focus()
+  iframe.contentWindow.focus()
 }

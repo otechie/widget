@@ -28,7 +28,7 @@
 .otechie-widget-iframe {
     z-index: 10002;
     position: fixed;
-    bottom: 100px;
+    bottom: 88px;
     right: 20px;
     width: 376px;
     height: calc(100% - 120px);
