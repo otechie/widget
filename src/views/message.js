@@ -12,7 +12,6 @@ let mobileX
 let icon
 
 export function show () {
-  console.log('WEB_URL', WEB_URL, process.env.WEB_URL)
   body = document.getElementsByTagName('body')[0];
   let temporary = document.createElement('div');
   temporary.innerHTML = html;
@@ -28,7 +27,7 @@ export function show () {
 
   chat.addEventListener('click', toggle);
   mobileX.addEventListener('click', toggle);
-  iframe.src = `${WEB_URL}/${window.ow.configurations.username}`
+  iframe.src = `${process.env.WEB_URL}/${window.ow.configurations.username}`
 }
 
 export function toggle () {

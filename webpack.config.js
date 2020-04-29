@@ -4,37 +4,43 @@ var copyWebpackPlugin = require('copy-webpack-plugin');
 const bundleOutputDir = './dist';
 
 module.exports = (env) => {
-    const isDevBuild = !(env && env.prod);
+  const isDevBuild = !(env && env.prod);
 
-    return [{
-        entry: './src/main.js',
-        output: {
-            filename: 'widget.js',
-            path: path.resolve(bundleOutputDir),
-        },
-        devServer: {
-            contentBase: bundleOutputDir
-        },
-        plugins: isDevBuild
-            ? [new webpack.SourceMapDevToolPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])]
-            : [new webpack.optimize.UglifyJsPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])],
-        module: {
-            rules: [
-                { test: /\.html$/i, use: 'html-loader' },
-                { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
-                {
-                    test: /\.js$/i, exclude: /node_modules/, use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [['@babel/env', {
-                                'targets': {
-                                    'browsers': ['ie 6', 'safari 7']
-                                }
-                            }]]
-                        }
-                    }
+  return [{
+    entry: './src/main.js',
+    output: {
+      filename: 'widget.js',
+      path: path.resolve(bundleOutputDir),
+    },
+    devServer: {
+      contentBase: bundleOutputDir
+    },
+    plugins: isDevBuild ? [
+      new webpack.SourceMapDevToolPlugin(),
+      new copyWebpackPlugin([{ from: 'demo/' }]),
+      new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
+    ] : [
+      new webpack.optimize.UglifyJsPlugin(),
+      new copyWebpackPlugin([{ from: 'demo/' }]),
+      new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
+    ],
+    module: {
+      rules: [
+        { test: /\.html$/i, use: 'html-loader' },
+        { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
+        {
+          test: /\.js$/i, exclude: /node_modules/, use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/env', {
+                'targets': {
+                  'browsers': ['ie 6', 'safari 7']
                 }
-            ]
+              }]]
+            }
+          }
         }
-    }];
+      ]
+    }
+  }];
 };
