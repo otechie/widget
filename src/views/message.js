@@ -1,7 +1,7 @@
 import html from './message.html'
 import './message.css'
 
-let WEB_URL
+const WEB_URL = process.env.WEB_URL || 'http://localhost:8080'
 
 let elements = []
 let chat
@@ -12,15 +12,6 @@ let mobileX
 let icon
 
 export function show () {
-  if (!window.ow.configurations.dev) {
-    WEB_URL = 'https://otechie.com'
-  } else if (window.location.href.includes('localhost')) {
-    WEB_URL = 'http://localhost:8080'
-    WEB_URL = 'https://dev-otechie.com'
-  } else {
-    WEB_URL = 'https://dev-otechie.com'
-  }
-
   body = document.getElementsByTagName('body')[0];
   let temporary = document.createElement('div');
   temporary.innerHTML = html;
