@@ -4,7 +4,7 @@ import './message.css'
 const WEB_URL = process.env.WEB_URL || 'https://dev-otechie.com'
 
 let elements = []
-let chat
+let bubble
 let iframe
 let body
 let x
@@ -19,13 +19,13 @@ export function show () {
     elements.push(temporary.children[0]);
     body.appendChild(temporary.children[0]);
   }
-  chat = document.getElementsByClassName('otechie-widget-chat')[0];
+  bubble = document.getElementsByClassName('otechie-widget-bubble')[0];
   iframe = document.getElementsByClassName('otechie-widget-iframe')[0];
   x = document.getElementsByClassName('otechie-widget-x')[0];
   mobileX = document.getElementsByClassName('otechie-mobile-x')[0];
   icon = document.getElementsByClassName('otechie-widget-icon')[0];
 
-  chat.addEventListener('click', toggle);
+  bubble.addEventListener('click', toggle);
   mobileX.addEventListener('click', toggle);
   iframe.src = `${process.env.WEB_URL}/${window.ow.configurations.username}`
 }
@@ -35,6 +35,9 @@ export function toggle () {
   icon.hidden = !icon.hidden
   x.hidden = !x.hidden
   mobileX.hidden = !mobileX.hidden
-  chat.active = true
   iframe.contentWindow.focus()
+  if (window.screen.width <= 767) {
+    body.style.overflowY = iframe.hidden ? 'visible' : 'hidden'
+    body.style.position = iframe.hidden ? 'relative' : 'fixed'
+  }
 }
