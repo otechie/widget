@@ -28,7 +28,6 @@ export function show () {
   chat.addEventListener('click', toggle);
   mobileX.addEventListener('click', toggle);
   iframe.src = `${WEB_URL}/${window.ow.configurations.username}`
-  console.log('iframe.src', iframe.src)
 }
 
 export function toggle () {
