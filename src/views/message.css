@@ -24,11 +24,11 @@
     bottom: 0;
     right: 0;
     left: 0;
-    transform: scale(0.2) rotate(22.5deg);
+    transform: scale(0.2) rotate(-45deg);
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.show .otechie-widget-x {
+.otechie-open .otechie-widget-x {
     opacity: 1;
     transform: none;
     transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
@@ -47,8 +47,8 @@
     transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
-.show .otechie-widget-icon {
-    transform: scale(0.2) rotate(-45deg);
+.otechie-open .otechie-widget-icon {
+    transform: scale(0.2) rotate(45deg);
     opacity: 0;
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
@@ -65,7 +65,7 @@
     border: none;
     background-color: white;
     opacity: 0;
-    transform: translate(0, 20px) !important;
+    transform: translate(0, 16px) !important;
     transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear;
     visibility: hidden;
     overflow: hidden;
@@ -79,7 +79,7 @@
     user-select: none;
 }
 
-.show .otechie-widget-iframe-wrapper {
+.otechie-open .otechie-widget-iframe-wrapper {
     transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
     opacity: 1;
     transform: none !important;
@@ -111,11 +111,11 @@
         left: 0;
     }
 
-    .show .otechie-mobile-x {
+    .otechie-open .otechie-mobile-x {
         display: block;
     }
 
-    .lock {
+    .otechie-lock {
         overflow-y: hidden;
         position: fixed;
     }

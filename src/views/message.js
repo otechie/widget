@@ -23,21 +23,14 @@ export function show () {
 }
 
 export function toggle () {
-  if (widget.classList.contains('show')) {
-    widget.classList.remove('show')
-    // iframe.addEventListener('transitionend', function (e) {
-    //   iframe.hidden = true
-    // }, {
-    //   capture: false,
-    //   once: true,
-    //   passive: false
-    // })
-    body.classList.remove('lock')
+  if (widget.classList.contains('otechie-open')) {
+    widget.classList.remove('otechie-open')
+    body.classList.remove('otechie-lock')
     iframe.contentWindow.blur()
   } else {
     iframe.hidden = false
-    widget.classList.add('show')
-    body.classList.add('lock')
+    widget.classList.add('otechie-open')
+    body.classList.add('otechie-lock')
     iframe.contentWindow.focus()
   }
 }
