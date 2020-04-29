@@ -18,29 +18,42 @@
 
 .otechie-widget-x {
     margin: 12px 8px 16px 16px;
-}
-
-.fade .otechie-widget-x {
-    display: none;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transform: scale(0.2) rotate(22.5deg);
+    transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
 .show .otechie-widget-x {
-    display: block;
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
 .otechie-widget-icon {
     margin: 10px;
-}
-
-.fade .otechie-widget-icon {
     display: block;
+    opacity: 1;
+    transform: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
 .show .otechie-widget-icon {
-    display: none;
+    transform: scale(0.2) rotate(-45deg);
+    opacity: 0;
+    transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.otechie-widget-iframe {
+.otechie-widget-iframe-wrapper {
     z-index: 10002;
     position: fixed;
     bottom: 88px;
@@ -51,22 +64,32 @@
     border-radius: 8px;
     border: none;
     background-color: white;
-}
-
-.fade .otechie-widget-iframe {
-    /*transform: translate(0, 100px) !important;*/
     opacity: 0;
+    transform: translate(0, 20px) !important;
+    transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear;
+    visibility: hidden;
+    overflow: hidden;
 }
 
-.show .otechie-widget-iframe {
-    transform: none !important;
+.otechie-widget-iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background-color: white;
+    user-select: none;
+}
+
+.show .otechie-widget-iframe-wrapper {
+    transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
     opacity: 1;
+    transform: none !important;
+    visibility: visible;
 }
 
 .otechie-mobile-x {
     display: none;
     z-index: 10003;
-    position: fixed;
+    position: absolute;
     top: 0;
     right: 0;
     width: 24px;
@@ -78,7 +101,7 @@
 }
 
 @media (max-width: 767px) {
-    .otechie-widget-iframe {
+    .otechie-widget-iframe-wrapper {
         width: 100%;
         height: 100%;
         border-radius: 0;
