@@ -1,7 +1,7 @@
 import html from './message.html'
 import './message.css'
 
-const WEB_URL = process.env.WEB_URL || 'http://localhost:8080'
+const WEB_URL = process.env.WEB_URL || 'https://dev-otechie.com'
 
 let elements = []
 let chat
