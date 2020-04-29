@@ -16,6 +16,7 @@ export function show () {
     WEB_URL = 'https://otechie.com'
   } else if (window.location.href.includes('localhost')) {
     WEB_URL = 'http://localhost:8080'
+    WEB_URL = 'https://dev-otechie.com'
   } else {
     WEB_URL = 'https://dev-otechie.com'
   }
@@ -36,6 +37,7 @@ export function show () {
   chat.addEventListener('click', toggle);
   mobileX.addEventListener('click', toggle);
   iframe.src = `${WEB_URL}/${window.ow.configurations.username}`
+  console.log('iframe.src', iframe.src)
 }
 
 export function toggle () {
