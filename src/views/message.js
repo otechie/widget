@@ -35,10 +35,14 @@ export function toggle () {
   iframe.hidden = on
   icon.hidden = !on
   x.hidden = on
-  iframe.contentWindow.focus()
-  if (window.outerWidth <= 767) {
+  if (window.innerWidth <= 767) {
     mobileX.hidden = on
     body.style.overflowY = iframe.hidden ? 'visible' : 'hidden'
     body.style.position = iframe.hidden ? 'relative' : 'fixed'
+  }
+  if (on) {
+    iframe.contentWindow.focus()
+  } else {
+    body.focus()
   }
 }
