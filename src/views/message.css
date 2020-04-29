@@ -87,7 +87,6 @@
 }
 
 .otechie-mobile-x {
-    display: none;
     z-index: 10003;
     position: absolute;
     top: 0;
@@ -109,10 +108,6 @@
         right: 0;
         bottom: 0;
         left: 0;
-    }
-
-    .otechie-open .otechie-mobile-x {
-        display: block;
     }
 
     .otechie-lock {
