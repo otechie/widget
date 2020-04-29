@@ -31,18 +31,18 @@ export function show () {
 }
 
 export function toggle () {
-  const on = !iframe.hidden
-  iframe.hidden = on
-  icon.hidden = !on
-  x.hidden = on
+  const hide = !iframe.hidden
+  iframe.hidden = hide
+  icon.hidden = !hide
+  x.hidden = hide
   if (window.innerWidth <= 767) {
-    mobileX.hidden = on
+    mobileX.hidden = hide
     body.style.overflowY = iframe.hidden ? 'visible' : 'hidden'
     body.style.position = iframe.hidden ? 'relative' : 'fixed'
   }
-  if (on) {
-    iframe.contentWindow.focus()
+  if (hide) {
+    iframe.contentWindow.blur()
   } else {
-    body.focus()
+    iframe.contentWindow.focus()
   }
 }
