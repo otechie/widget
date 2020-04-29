@@ -31,12 +31,13 @@ export function show () {
 }
 
 export function toggle () {
-  iframe.hidden = !iframe.hidden
-  icon.hidden = !icon.hidden
-  x.hidden = !x.hidden
-  mobileX.hidden = !mobileX.hidden
+  const on = !iframe.hidden
+  iframe.hidden = on
+  icon.hidden = !on
+  x.hidden = on
   iframe.contentWindow.focus()
-  if (window.screen.width <= 767) {
+  if (window.outerWidth <= 767) {
+    mobileX.hidden = on
     body.style.overflowY = iframe.hidden ? 'visible' : 'hidden'
     body.style.position = iframe.hidden ? 'relative' : 'fixed'
   }

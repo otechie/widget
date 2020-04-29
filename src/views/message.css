@@ -1,5 +1,4 @@
 .otechie-widget-bubble {
-    font-family: gibson-regular, sans-serif;
     z-index: 10000;
     position: fixed;
     bottom: 20px;
@@ -48,15 +47,8 @@
         bottom: 0;
         left: 0;
     }
-}
 
-.otechie-mobile-x {
-    display: none;
-}
-
-@media (max-width: 767px) {
     .otechie-mobile-x {
-        display: inline-block;
         z-index: 10003;
         position: fixed;
         top: 0;
