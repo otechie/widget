@@ -12,6 +12,7 @@ let mobileX
 let icon
 
 export function show () {
+  console.log('WEB_URL', WEB_URL, process.env.WEB_URL)
   body = document.getElementsByTagName('body')[0];
   let temporary = document.createElement('div');
   temporary.innerHTML = html;
