@@ -31,6 +31,8 @@ export function toggle () {
     iframe.hidden = false
     widget.classList.add('otechie-open')
     body.classList.add('otechie-lock')
-    iframe.contentWindow.focus()
+    if (window.innerWidth > 767) {
+      iframe.contentWindow.focus()
+    }
   }
 }
