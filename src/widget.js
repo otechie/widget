@@ -41,7 +41,6 @@ function toggle () {
   if (widget.classList.contains('OtechieWidget--open')) {
     widget.classList.remove('OtechieWidget--open')
     body.classList.remove('OtechieWidget--lock')
-    body.focus()
   } else {
     widget.classList.add('OtechieWidget--open')
     if (window.innerWidth > 767) {
