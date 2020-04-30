@@ -32,10 +32,7 @@ function inject (username) {
   })
   window.addEventListener('message', (event) => {
     if (event.origin === process.env.WEB_URL && event.data === 'close') {
-      widget.classList.remove('OtechieWidget--open')
-      body.classList.remove('OtechieWidget--lock')
-      body.blur()
-      iframe.blur()
+      toggle()
     }
   })
 }
@@ -46,11 +43,8 @@ function toggle () {
     body.classList.remove('OtechieWidget--lock')
   } else {
     widget.classList.add('OtechieWidget--open')
-    if (window.innerWidth > 767) {
-      iframe.contentWindow.focus()
-    } else {
-      body.classList.add('OtechieWidget--lock')
-    }
+    body.classList.add('OtechieWidget--lock')
+    iframe.contentWindow.focus()
   }
 }
 
