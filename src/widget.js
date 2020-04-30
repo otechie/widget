@@ -1,11 +1,11 @@
-import html from './message.html'
-import './message.css'
+import html from './main.html'
+import './main.css'
 
 let iframe
 let body
 let widget
 
-export function show () {
+function inject () {
   body = document.getElementsByTagName('body')[0]
   const temporary = document.createElement('div')
   temporary.innerHTML = html
@@ -17,7 +17,7 @@ export function show () {
   const bubble = document.getElementsByClassName('otechie-widget-bubble')[0]
 
   bubble.addEventListener('click', toggle)
-  iframe.src = `${process.env.WEB_URL}/${window.ow.configurations.username}`
+  iframe.src = `${process.env.WEB_URL}/${window.ow.config.username}`
   iframe.addEventListener('load', function (event) {
     widget.classList.add('otechie-loaded')
   })
@@ -27,7 +27,7 @@ export function show () {
   })
 }
 
-export function toggle () {
+function toggle () {
   if (widget.classList.contains('otechie-open')) {
     widget.classList.remove('otechie-open')
     body.classList.remove('otechie-lock')
@@ -41,3 +41,14 @@ export function toggle () {
     }
   }
 }
+
+function app (window) {
+  const globalObject = window[window['Otechie-Widget']]
+  const queue = globalObject.q
+  if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
+    globalObject.config = queue[0][1]
+    inject()
+  }
+}
+
+app(window)
