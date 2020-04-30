@@ -32,7 +32,8 @@ function inject (username) {
   })
   window.addEventListener('message', (event) => {
     if (event.origin === process.env.WEB_URL && event.data === 'close') {
-      toggle()
+      widget.classList.remove('OtechieWidget--open')
+      body.classList.remove('OtechieWidget--lock')
     }
   })
 }
