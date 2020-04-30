@@ -18,7 +18,7 @@ jobs:
           command: yarn
       - run:
           name: Build application
-          command: yarn build-release
+          command: yarn build
       - run:
           name: Upload static
           command: aws s3 sync /home/circleci/repo/dist/ s3://<< parameters.domain >>/ --delete --acl public-read

@@ -1,6 +1,6 @@
 const path = require('path')
 const webpack = require('webpack')
-const copyWebpackPlugin = require('copy-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 const bundleOutputDir = './dist'
 
 module.exports = (env) => {
@@ -9,7 +9,7 @@ module.exports = (env) => {
     ? [new webpack.SourceMapDevToolPlugin()]
     : [new webpack.optimize.UglifyJsPlugin()]
   plugins.push(
-    new copyWebpackPlugin([{ from: 'demo/' }]),
+    new CopyWebpackPlugin([{ from: 'demo/' }]),
     new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
   )
   return [{
