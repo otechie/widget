@@ -1,18 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const bundleOutputDir = './dist'
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = (env) => {
+  const bundleOutputDir = './dist'
   const isDevBuild = !(env && env.prod)
   const plugins = isDevBuild
     ? [new webpack.SourceMapDevToolPlugin()]
-    : [new webpack.optimize.UglifyJsPlugin()]
+    : []
   plugins.push(
     new CopyWebpackPlugin([{ from: 'demo/' }]),
     new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
   )
   return [{
+    mode: isDevBuild ? 'development' : 'production',
     entry: './src/widget.js',
     output: {
       filename: 'widget.js',
@@ -22,6 +24,9 @@ module.exports = (env) => {
       contentBase: bundleOutputDir
     },
     plugins: plugins,
+    optimization: {
+      minimizer: [ new UglifyJsPlugin() ]
+    },
     module: {
       rules: [
         { test: /\.html$/i, use: 'html-loader' },
