@@ -1,4 +1,4 @@
-.otechie-widget-bubble {
+.ow-bubble {
     z-index: 10000;
     position: fixed;
     bottom: 20px;
@@ -15,16 +15,16 @@
     opacity: 0;
 }
 
-.otechie-widget-bubble:hover {
+.ow-bubble:hover {
     background-color: #4887dc;
 }
 
-.otechie-loaded .otechie-widget-bubble {
+.ow-loaded .ow-bubble {
     opacity: 1;
     transition: opacity 0.15s linear;
 }
 
-.otechie-widget-x {
+.ow-x {
     user-select: none;
     margin: 12px 8px 16px 16px;
     opacity: 0;
@@ -37,13 +37,13 @@
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.otechie-open .otechie-widget-x {
+.ow-open .ow-x {
     opacity: 1;
     transform: none;
     transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
-.otechie-widget-icon {
+.ow-icon {
     user-select: none;
     margin: 10px;
     display: block;
@@ -57,13 +57,13 @@
     transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
-.otechie-open .otechie-widget-icon {
+.ow-open .ow-icon {
     transform: scale(0.2) rotate(30deg);
     opacity: 0;
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.otechie-widget-iframe {
+.ow-iframe {
     z-index: 10002;
     position: fixed;
     bottom: 88px;
@@ -82,7 +82,7 @@
     user-select: none;
 }
 
-.otechie-open .otechie-widget-iframe {
+.ow-open .ow-iframe {
     transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
     opacity: 1;
     transform: none !important;
@@ -90,7 +90,7 @@
 }
 
 @media (max-width: 767px) {
-    .otechie-widget-iframe {
+    .ow-iframe {
         width: 100%;
         height: 100%;
         border-radius: 0;
@@ -101,12 +101,12 @@
         transform: translate(0, 50px);
     }
 
-    .otechie-lock {
+    .ow-lock {
         overflow-y: hidden;
         position: fixed;
     }
 
-    .otechie-open .otechie-widget-bubble {
+    .ow-open .ow-bubble {
         opacity: 0;
         transition: opacity 0.3s linear;
     }

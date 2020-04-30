@@ -13,13 +13,13 @@ function inject () {
     body.appendChild(temporary.children[0])
   }
   widget = document.getElementById('otechie-widget')
-  iframe = document.getElementsByClassName('otechie-widget-iframe')[0]
-  const bubble = document.getElementsByClassName('otechie-widget-bubble')[0]
+  iframe = document.getElementsByClassName('ow-iframe')[0]
+  const bubble = document.getElementsByClassName('ow-bubble')[0]
 
   bubble.addEventListener('click', toggle)
   iframe.src = `${process.env.WEB_URL}/${window.ow.config.username}`
   iframe.addEventListener('load', function (event) {
-    widget.classList.add('otechie-loaded')
+    widget.classList.add('ow-loaded')
   })
   window.addEventListener('message', function (event) {
     if (event.origin !== process.env.WEB_URL || event.data !== 'close') return
@@ -28,14 +28,14 @@ function inject () {
 }
 
 function toggle () {
-  if (widget.classList.contains('otechie-open')) {
-    widget.classList.remove('otechie-open')
-    body.classList.remove('otechie-lock')
+  if (widget.classList.contains('ow-open')) {
+    widget.classList.remove('ow-open')
+    body.classList.remove('ow-lock')
     iframe.contentWindow.blur()
   } else {
     iframe.hidden = false
-    widget.classList.add('otechie-open')
-    body.classList.add('otechie-lock')
+    widget.classList.add('ow-open')
+    body.classList.add('ow-lock')
     if (window.innerWidth > 767) {
       iframe.contentWindow.focus()
     }
