@@ -18,6 +18,10 @@ function inject () {
 
   bubble.addEventListener('click', toggle)
   iframe.src = `${process.env.WEB_URL}/${window.ow.config.username}`
+  // if ((iframe.contentDocument || iframe.contentWindow.document).readyState === 'complete') {
+  //   widget.classList.add('ow-loaded')
+  // }
+  console.log('(window.innerWidth', window.innerWidth)
   iframe.addEventListener('load', function (event) {
     widget.classList.add('ow-loaded')
   })
@@ -33,7 +37,6 @@ function toggle () {
     body.classList.remove('ow-lock')
     iframe.contentWindow.blur()
   } else {
-    iframe.hidden = false
     widget.classList.add('ow-open')
     body.classList.add('ow-lock')
     if (window.innerWidth > 767) {
