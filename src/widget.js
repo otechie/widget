@@ -4,53 +4,51 @@ import './widget.css'
 let iframe
 let body
 let widget
-
-function inject () {
-  body = document.getElementsByTagName('body')[0]
-  const temporary = document.createElement('div')
-  temporary.innerHTML = html
-  while (temporary.children.length > 0) {
-    body.appendChild(temporary.children[0])
-  }
-  widget = document.getElementById('otechie-widget')
-  iframe = document.getElementsByClassName('ow-iframe')[0]
-  const bubble = document.getElementsByClassName('ow-bubble')[0]
-
-  bubble.addEventListener('click', toggle)
-  iframe.src = `${process.env.WEB_URL}/${window.ow.config.username}`
-  // if ((iframe.contentDocument || iframe.contentWindow.document).readyState === 'complete') {
-  //   widget.classList.add('ow-loaded')
-  // }
-  console.log('(window.innerWidth', window.innerWidth)
-  iframe.addEventListener('load', function (event) {
-    widget.classList.add('ow-loaded')
-  })
-  window.addEventListener('message', function (event) {
-    if (event.origin !== process.env.WEB_URL || event.data !== 'close') return
-    toggle()
-  })
-}
-
-function toggle () {
-  if (widget.classList.contains('ow-open')) {
-    widget.classList.remove('ow-open')
-    body.classList.remove('ow-lock')
-    iframe.contentWindow.blur()
-  } else {
-    widget.classList.add('ow-open')
-    body.classList.add('ow-lock')
-    if (window.innerWidth > 767) {
-      iframe.contentWindow.focus()
-    }
-  }
-}
+let bubble
 
 function app (window) {
   const globalObject = window[window['Otechie-Widget']]
   const queue = globalObject.q
   if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
-    globalObject.config = queue[0][1]
-    inject()
+    inject(queue[0][1].username)
+  }
+}
+
+function inject (username) {
+  widget = document.createElement('div')
+  widget.id = 'otechie-widget'
+  widget.innerHTML = html
+
+  body = document.getElementsByTagName('body')[0]
+  body.appendChild(widget)
+
+  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
+  bubble.addEventListener('click', toggle)
+
+  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  iframe.src = `${process.env.WEB_URL}/${username}`
+  iframe.addEventListener('load', (event) => {
+    widget.classList.add('OtechieWidget--loaded')
+  })
+  window.addEventListener('message', (event) => {
+    if (event.origin === process.env.WEB_URL && event.data === 'close') {
+      toggle()
+    }
+  })
+}
+
+function toggle () {
+  if (widget.classList.contains('OtechieWidget--open')) {
+    widget.classList.remove('OtechieWidget--open')
+    body.classList.remove('OtechieWidget--lock')
+    body.focus()
+  } else {
+    widget.classList.add('OtechieWidget--open')
+    if (window.innerWidth > 767) {
+      iframe.contentWindow.focus()
+    } else {
+      body.classList.add('OtechieWidget--lock')
+    }
   }
 }
 

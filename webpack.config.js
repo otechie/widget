@@ -25,7 +25,7 @@ module.exports = (env) => {
     },
     plugins: plugins,
     optimization: {
-      minimizer: [ new UglifyJsPlugin() ]
+      minimizer: [new UglifyJsPlugin()]
     },
     module: {
       rules: [
