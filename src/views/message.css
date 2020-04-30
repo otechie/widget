@@ -11,12 +11,17 @@
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
     cursor: pointer;
     user-select: none;
-    opacity: 1;
     transition: opacity 0.3s linear;
+    opacity: 0;
 }
 
 .otechie-widget-bubble:hover {
     background-color: #4887dc;
+}
+
+.otechie-loaded .otechie-widget-bubble {
+    opacity: 1;
+    transition: opacity 0.15s linear;
 }
 
 .otechie-widget-x {
@@ -58,7 +63,7 @@
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.otechie-widget-iframe-wrapper {
+.otechie-widget-iframe {
     z-index: 10002;
     position: fixed;
     bottom: 88px;
@@ -74,43 +79,18 @@
     transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear;
     visibility: hidden;
     overflow: hidden;
-}
-
-.otechie-widget-iframe-wrapper iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background-color: white;
     user-select: none;
 }
 
-.otechie-open .otechie-widget-iframe-wrapper {
+.otechie-open .otechie-widget-iframe {
     transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
     opacity: 1;
     transform: none !important;
     visibility: visible;
 }
 
-.otechie-mobile-x {
-    visibility: hidden;
-    z-index: 10003;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    padding: 12px;
-    color: white;
-    border-radius: 0 0 0 50%;
-    background-color: #549DFF;
-}
-
 @media (max-width: 767px) {
-    .otechie-mobile-x {
-        visibility: visible;
-    }
-
-    .otechie-widget-iframe-wrapper {
+    .otechie-widget-iframe {
         width: 100%;
         height: 100%;
         border-radius: 0;

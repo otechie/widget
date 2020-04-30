@@ -15,11 +15,16 @@ export function show () {
   widget = document.getElementById('otechie-widget')
   iframe = document.getElementsByClassName('otechie-widget-iframe')[0]
   const bubble = document.getElementsByClassName('otechie-widget-bubble')[0]
-  const mobileX = document.getElementsByClassName('otechie-mobile-x')[0]
 
   bubble.addEventListener('click', toggle)
-  mobileX.addEventListener('click', toggle)
   iframe.src = `${process.env.WEB_URL}/${window.ow.configurations.username}`
+  iframe.addEventListener('load', function (event) {
+    widget.classList.add('otechie-loaded')
+  })
+  window.addEventListener('message', function (event) {
+    if (event.origin !== process.env.WEB_URL || event.data !== 'close') return
+    toggle()
+  })
 }
 
 export function toggle () {
