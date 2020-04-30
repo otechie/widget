@@ -4,10 +4,18 @@
   <title>Otechie Embeddable Widget</title>
 </head>
 <body>
+<h1>Otechie Embeddable Widget</h1>
+<pre><code id="widget-code">&lt;script>
+    (function (w,d,s,o,f,js,fjs) {
+        w['Otechie-Widget']=o;w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments) };
+        js = d.createElement(s), fjs = d.getElementsByTagName(s)[0];
+        js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+    }(window, document, 'script', 'ow', 'https://widget.otechie.com/widget.js'));
+    ow('init', { username: 'dog' });
+&lt;/script></code></pre>
 <button>
   Test
 </button>
-<h1>Otechie Embeddable Widget</h1>
 <h2>Fusce gravida vehicula vestibulum tortor pulvinar</h2>
 <p>Orci purus ante excepteur nunc nascetur rhoncus taciti ut. Ornare vitae sed. Amet suspendisse integer rutrum aliquet
   venenatis. Nec sed nullam mauris magna vel pretium non tristique. Porta justo ac dictumst aliquip blandit. Libero

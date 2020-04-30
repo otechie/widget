@@ -1,5 +1,5 @@
-import html from './main.html'
-import './main.css'
+import html from './widget.html'
+import './widget.css'
 
 let iframe
 let body
