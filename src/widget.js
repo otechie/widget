@@ -34,6 +34,8 @@ function inject (username) {
     if (event.origin === process.env.WEB_URL && event.data === 'close') {
       widget.classList.remove('OtechieWidget--open')
       body.classList.remove('OtechieWidget--lock')
+      body.blur()
+      iframe.blur()
     }
   })
 }
