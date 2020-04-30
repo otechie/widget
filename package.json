@@ -1,5 +1,6 @@
 {
-  "name": "widget",
+  "name": "otechie-widget",
+  "version": "1.0.0",
   "license": "UNLICENSED",
   "private": true,
   "copyright": "© 2020 Otechie, Inc",
