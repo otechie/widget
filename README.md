@@ -11,3 +11,10 @@ Install with
     ow('init', { username: 'dog' });
 </script>
 ```
+
+Based on https://blog.jenyay.com/building-javascript-widget/
+
+Loads web in iframe.
+
+Uses postMessage to close window.
+https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage
