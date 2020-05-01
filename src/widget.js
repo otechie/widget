@@ -23,18 +23,18 @@ function inject (username) {
   body.appendChild(widget)
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.addEventListener('click', toggle)
+  bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   iframe.src = `${process.env.WEB_URL}/${username}`
-  iframe.addEventListener('load', (event) => {
+  iframe.onload = (event) => {
     widget.classList.add('OtechieWidget--loaded')
-  })
-  window.addEventListener('message', (event) => {
+  }
+  window.onmessage = (event) => {
     if (event.origin === process.env.WEB_URL && event.data === 'close') {
       toggle()
     }
-  })
+  }
 }
 
 function toggle () {
