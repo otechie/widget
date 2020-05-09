@@ -32,17 +32,19 @@
     height: 52px;
     width: 52px;
     border-radius: 12px;
-    background-color: #549DFF;
     color: white;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
     cursor: pointer;
     user-select: none;
     transition: opacity 0.3s linear;
+    overflow: hidden;
     opacity: 0;
+    border: none;
+    background-color: #549DFF;
 }
 
 .OtechieWidget--bubble:hover {
-    background-color: #4887dc;
+    -webkit-filter: brightness(85%);
 }
 
 .OtechieWidget--loaded .OtechieWidget--bubble {

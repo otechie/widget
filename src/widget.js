@@ -27,12 +27,12 @@ function inject (username) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   iframe.src = `${process.env.WEB_URL}/${username}`
-  iframe.onload = (event) => {
-    widget.classList.add('OtechieWidget--loaded')
-  }
   window.onmessage = (event) => {
     if (event.origin === process.env.WEB_URL && event.data === 'close') {
       toggle()
+    } else if (event.origin === process.env.WEB_URL && event.data && event.data.widgetColor) {
+      bubble.style.backgroundColor = event.data.widgetColor
+      widget.classList.add('OtechieWidget--loaded')
     }
   }
 }
