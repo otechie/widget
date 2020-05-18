@@ -6,6 +6,9 @@ jobs:
       - image: shaperid/node-aws-ci:latest
     environment:
       NODE_OPTIONS: --max_old_space_size=4096
+    parameters:
+      domain:
+        type: string
     steps:
       - checkout
       - attach_workspace:
@@ -15,12 +18,23 @@ jobs:
           command: yarn
       - run:
           name: Build application
-          command: yarn build-release
+          command: yarn build
       - run:
           name: Upload static
-          command: aws s3 sync /home/circleci/repo/dist/ s3://widget.otechie.com/dist --delete --acl public-read
+          command: aws s3 sync /home/circleci/repo/dist/ s3://<< parameters.domain >>/ --delete --acl public-read
 
 workflows:
   deploy:
     jobs:
-      - deploy
+      - deploy:
+          context: production
+          filters:
+            branches:
+              only: master
+          domain: 'widget.otechie.com'
+      - deploy:
+          context: development
+          filters:
+            branches:
+              only: dev
+          domain: 'widget.dev-otechie.com'

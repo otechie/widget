@@ -1,40 +1,49 @@
-const path = require('path');
-const webpack = require('webpack');
-var copyWebpackPlugin = require('copy-webpack-plugin');
-const bundleOutputDir = './dist';
+const path = require('path')
+const webpack = require('webpack')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 module.exports = (env) => {
-    const isDevBuild = !(env && env.prod);
-
-    return [{
-        entry: './src/main.js',
-        output: {
-            filename: 'widget.js',
-            path: path.resolve(bundleOutputDir),
-        },
-        devServer: {
-            contentBase: bundleOutputDir
-        },
-        plugins: isDevBuild
-            ? [new webpack.SourceMapDevToolPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])]
-            : [new webpack.optimize.UglifyJsPlugin(), new copyWebpackPlugin([{ from: 'demo/' }])],
-        module: {
-            rules: [
-                { test: /\.html$/i, use: 'html-loader' },
-                { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
-                {
-                    test: /\.js$/i, exclude: /node_modules/, use: {
-                        loader: 'babel-loader',
-                        options: {
-                            presets: [['@babel/env', {
-                                'targets': {
-                                    'browsers': ['ie 6', 'safari 7']
-                                }
-                            }]]
-                        }
-                    }
+  const bundleOutputDir = './dist'
+  const isDevBuild = !(env && env.prod)
+  const plugins = isDevBuild
+    ? [new webpack.SourceMapDevToolPlugin()]
+    : []
+  plugins.push(
+    new CopyWebpackPlugin([{ from: 'demo/' }]),
+    new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
+  )
+  return [{
+    mode: isDevBuild ? 'development' : 'production',
+    entry: './src/widget.js',
+    output: {
+      filename: 'widget.js',
+      path: path.resolve(bundleOutputDir),
+    },
+    devServer: {
+      contentBase: bundleOutputDir
+    },
+    plugins: plugins,
+    optimization: {
+      minimizer: [new UglifyJsPlugin()]
+    },
+    module: {
+      rules: [
+        { test: /\.html$/i, use: 'html-loader' },
+        { test: /\.css$/i, use: ['style-loader', 'css-loader'] },
+        {
+          test: /\.js$/i, exclude: /node_modules/, use: {
+            loader: 'babel-loader',
+            options: {
+              presets: [['@babel/env', {
+                'targets': {
+                  'browsers': ['ie 6', 'safari 7']
                 }
-            ]
+              }]]
+            }
+          }
         }
-    }];
-};
+      ]
+    }
+  }]
+}

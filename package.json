@@ -1,25 +1,28 @@
 {
-  "name": "widget",
+  "name": "otechie-widget",
+  "version": "1.0.0",
   "license": "UNLICENSED",
   "private": true,
-  "copyright": "© 2019 Otechie, Inc",
-  "homepage": "http://otechie.com",
-  "author": "Otechie <hello@otechie.com>",
+  "copyright": "© 2020 Otechie, Inc",
+  "homepage": "http://widget.otechie.com",
+  "author": "Dylan Wight <dylan@otechie.com>",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --config webpack.config.js",
-    "build-release": "./node_modules/.bin/webpack --config webpack.config.js --env.prod",
+    "build-dev": "./node_modules/.bin/webpack --config webpack.config.js",
+    "build": "./node_modules/.bin/webpack --config webpack.config.js --env.prod",
     "start": "./node_modules/.bin/webpack-dev-server --open"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.32",
-    "@babel/preset-env": "^7.0.0-beta.32",
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "babel-loader": "^8.0.0-beta.0",
-    "copy-webpack-plugin": "^4.2.0",
-    "css-loader": "^3.2.0",
-    "html-loader": "^0.5.1",
-    "style-loader": "^0.19.0",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.4"
+    "copy-webpack-plugin": "^5.1.1",
+    "css-loader": "^3.5.3",
+    "html-loader": "^1.1.0",
+    "style-loader": "^1.2.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.43.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {}
 }
