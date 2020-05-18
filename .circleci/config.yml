@@ -15,7 +15,7 @@ jobs:
           at: ~/repo
       - run:
           name: Install deps
-          command: yarn
+          command: yarn install --production=false
       - run:
           name: Build application
           command: yarn build
