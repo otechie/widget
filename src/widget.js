@@ -27,13 +27,29 @@ function inject (username) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   iframe.src = `${process.env.WEB_URL}/${username}`
-  window.onmessage = (event) => {
-    if (event.origin === process.env.WEB_URL && event.data === 'close') {
-      toggle()
-    } else if (event.origin === process.env.WEB_URL && event.data && event.data.widgetColor) {
-      bubble.style.backgroundColor = event.data.widgetColor
+
+  window.onmessage = messageReceived
+}
+
+function messageReceived (event) {
+  if (event.origin !== process.env.WEB_URL) return
+
+  switch (event.data.message) {
+    case 'CLOSE_WIDGET':
+      return toggle()
+    case 'SET_COLOR':
+      bubble.style.backgroundColor = event.data.color
       widget.classList.add('OtechieWidget--loaded')
-    }
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
+    default:
+      // Legacy
+      if (event.data === 'close') {
+        return toggle()
+      } else if (event.data.widgetColor) {
+        bubble.style.backgroundColor = event.data.widgetColor
+        widget.classList.add('OtechieWidget--loaded')
+        return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
+      }
   }
 }
 
