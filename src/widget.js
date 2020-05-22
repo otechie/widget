@@ -27,6 +27,7 @@ function inject (username) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   iframe.src = `${process.env.WEB_URL}/${username}`
+
   window.onmessage = (event) => {
     if (event.origin === process.env.WEB_URL && event.data && event.data.message === 'CLOSE_WIDGET') {
       toggle()
