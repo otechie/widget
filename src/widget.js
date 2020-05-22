@@ -33,6 +33,7 @@ function inject (username) {
     } else if (event.origin === process.env.WEB_URL && event.data && event.data.widgetColor) {
       bubble.style.backgroundColor = event.data.widgetColor
       widget.classList.add('OtechieWidget--loaded')
+      event.source.postMessage({ type: 'widgetLoaded', href: window.location.href }, process.env.WEB_URL)
     }
   }
 }
