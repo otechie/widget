@@ -11,7 +11,7 @@ module.exports = (env) => {
     : []
   plugins.push(
     new CopyWebpackPlugin([{ from: 'demo/' }]),
-    new webpack.EnvironmentPlugin({ WEB_URL: 'http://localhost:8080' })
+    new webpack.EnvironmentPlugin({ WEB_URL: 'https://dev-otechie.com' })
   )
   return [{
     mode: isDevBuild ? 'development' : 'production',
