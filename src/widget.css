@@ -25,7 +25,7 @@
 }
 
 .OtechieWidget--bubble {
-    z-index: 10000;
+    z-index: 10003;
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -34,7 +34,7 @@
     border-radius: 12px;
     color: white;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
-    cursor: pointer;
+    visibility: hidden;
     user-select: none;
     transition: opacity 0.3s linear;
     overflow: hidden;
@@ -47,6 +47,8 @@
 }
 
 .OtechieWidget--loaded .OtechieWidget--bubble {
+    visibility: visible;
+    cursor: pointer;
     opacity: 1;
     transition: opacity 0.15s linear;
 }
@@ -103,6 +105,7 @@
     }
 
     .OtechieWidget--open .OtechieWidget--bubble {
+        visibility: hidden;
         opacity: 0;
         transition: opacity 0.3s linear;
     }
