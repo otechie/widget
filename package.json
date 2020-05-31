@@ -9,6 +9,7 @@
   "scripts": {
     "build-dev": "./node_modules/.bin/webpack --config webpack.config.js",
     "build": "./node_modules/.bin/webpack --config webpack.config.js --env.prod",
+    "dev": "cross-env WEB_URL=http://localhost:8080 yarn start",
     "start": "./node_modules/.bin/webpack-dev-server --open"
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "@babel/preset-env": "^7.9.6",
     "babel-loader": "^8.0.0-beta.0",
     "copy-webpack-plugin": "^5.1.1",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.5.3",
     "html-loader": "^1.1.0",
     "style-loader": "^1.2.1",
