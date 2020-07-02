@@ -10,11 +10,31 @@ function app (window) {
   const globalObject = window[window['Otechie-Widget']]
   const queue = globalObject.q
   if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
-    inject(queue[0][1].username)
+    console.log('queue', queue)
+    for (var i = 0; i < queue.length; i++) {
+      const command = queue[i]
+      console.log('load', command)
+      ow(command[0], command[1])
+    }
+  }
+  window[window['Otechie-Widget']] = ow
+}
+
+function ow (type, args) {
+  if (type === 'init') {
+    init(args)
+  } else if (type === 'hide') {
+    hide()
   }
 }
 
-function inject (username) {
+function hide () {
+  if (widget) {
+    widget.parentNode.removeChild(widget)
+  }
+}
+
+function init ({ username, testMode }) {
   widget = document.createElement('div')
   widget.id = 'otechie-widget'
   widget.innerHTML = html
@@ -26,7 +46,7 @@ function inject (username) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  iframe.src = `${process.env.WEB_URL}/${username}`
+  iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
 
   window.onmessage = messageReceived
 }
@@ -42,14 +62,7 @@ function messageReceived (event) {
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
     default:
-      // Legacy
-      if (event.data === 'close') {
-        return toggle()
-      } else if (event.data.widgetColor) {
-        bubble.style.backgroundColor = event.data.widgetColor
-        widget.classList.add('OtechieWidget--loaded')
-        return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
-      }
+      return
   }
 }
 
