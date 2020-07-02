@@ -10,10 +10,8 @@ function app (window) {
   const globalObject = window[window['Otechie-Widget']]
   const queue = globalObject.q
   if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
-    console.log('queue', queue)
     for (var i = 0; i < queue.length; i++) {
       const command = queue[i]
-      console.log('load', command)
       ow(command[0], command[1])
     }
   }
