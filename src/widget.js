@@ -7,9 +7,22 @@ let widget
 let bubble
 
 function app (window) {
+  widget = document.createElement('div')
+  widget.id = 'otechie-widget'
+  widget.innerHTML = html
+
+  body = document.getElementsByTagName('body')[0]
+  body.appendChild(widget)
+
+  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
+  bubble.onclick = toggle
+
+  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  window.onmessage = messageReceived
+
   const globalObject = window[window['Otechie-Widget']]
   const queue = globalObject.q
-  if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
+  if (queue) {
     for (var i = 0; i < queue.length; i++) {
       const command = queue[i]
       ow(command[0], command[1])
@@ -23,30 +36,32 @@ function ow (type, args) {
     init(args)
   } else if (type === 'hide') {
     hide()
+  } else if (type === 'show') {
+    show()
   }
 }
 
 function hide () {
-  if (widget) {
-    widget.parentNode.removeChild(widget)
-  }
+  if (!widget) return
+  widget.classList.remove('OtechieWidget--open')
+  body.classList.remove('OtechieWidget--lock')
+  widget.classList.add('OtechieWidget--hide')
+}
+
+function show () {
+  if (!widget) return
+  widget.classList.remove('OtechieWidget--hide')
 }
 
 function init ({ username, testMode }) {
-  widget = document.createElement('div')
-  widget.id = 'otechie-widget'
-  widget.innerHTML = html
-
-  body = document.getElementsByTagName('body')[0]
-  body.appendChild(widget)
-
-  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = toggle
-
-  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
-
-  window.onmessage = messageReceived
+  if (widget.classList.contains('OtechieWidget--loaded')) {
+    widget.classList.remove('OtechieWidget--open')
+    body.classList.remove('OtechieWidget--lock')
+    widget.classList.remove('OtechieWidget--hide')
+    iframe.contentWindow.postMessage({ message: 'UPDATE_LOCATION', location: `/${username}${testMode ? '?test=true' : ''}` }, process.env.WEB_URL)
+  } else {
+    iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
+  }
 }
 
 function messageReceived (event) {
@@ -76,3 +91,9 @@ function toggle () {
 }
 
 app(window)
+
+
+// init
+// hide
+// show
+// reset

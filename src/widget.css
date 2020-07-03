@@ -54,6 +54,10 @@
     transition: opacity 0.15s linear;
 }
 
+.OtechieWidget--hide .OtechieWidget--bubble {
+    visibility: hidden;
+}
+
 .OtechieWidget--icon {
     user-select: none;
     margin: 10px;
