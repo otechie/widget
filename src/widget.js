@@ -25,19 +25,35 @@ function app (window) {
   if (queue) {
     for (var i = 0; i < queue.length; i++) {
       const command = queue[i]
-      ow(command[0], command[1])
+      main(command[0], command[1])
     }
   }
-  window[window['Otechie-Widget']] = ow
+  window[window['Otechie-Widget']] = main
 }
 
-function ow (type, args) {
+function main (type, args) {
   if (type === 'init') {
     init(args)
   } else if (type === 'hide') {
     hide()
   } else if (type === 'show') {
     show()
+  } else if (type === 'reset') {
+    reset()
+  }
+}
+
+function init ({ username, testMode }) {
+  if (widget.classList.contains('OtechieWidget--loaded')) {
+    widget.classList.remove('OtechieWidget--open')
+    body.classList.remove('OtechieWidget--lock')
+    widget.classList.remove('OtechieWidget--hide')
+    iframe.contentWindow.postMessage({
+      message: 'UPDATE_LOCATION',
+      location: `/${username}${testMode ? '?test=true' : ''}`
+    }, process.env.WEB_URL)
+  } else {
+    iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
   }
 }
 
@@ -53,15 +69,12 @@ function show () {
   widget.classList.remove('OtechieWidget--hide')
 }
 
-function init ({ username, testMode }) {
-  if (widget.classList.contains('OtechieWidget--loaded')) {
-    widget.classList.remove('OtechieWidget--open')
-    body.classList.remove('OtechieWidget--lock')
-    widget.classList.remove('OtechieWidget--hide')
-    iframe.contentWindow.postMessage({ message: 'UPDATE_LOCATION', location: `/${username}${testMode ? '?test=true' : ''}` }, process.env.WEB_URL)
-  } else {
-    iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
-  }
+function reset () {
+  if (!iframe) return
+  widget.classList.remove('OtechieWidget--loaded')
+  iframe.contentWindow.postMessage({
+    message: 'RESET'
+  }, process.env.WEB_URL)
 }
 
 function messageReceived (event) {
@@ -91,9 +104,3 @@ function toggle () {
 }
 
 app(window)
-
-
-// init
-// hide
-// show
-// reset
