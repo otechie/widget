@@ -7,19 +7,6 @@ let widget
 let bubble
 
 function app (window) {
-  widget = document.createElement('div')
-  widget.id = 'otechie-widget'
-  widget.innerHTML = html
-
-  body = document.getElementsByTagName('body')[0]
-  body.appendChild(widget)
-
-  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = toggle
-
-  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  window.onmessage = messageReceived
-
   const globalObject = window[window['Otechie-Widget']]
   const queue = globalObject.q
   if (queue) {
@@ -38,23 +25,24 @@ function main (type, args) {
     hide()
   } else if (type === 'show') {
     show()
-  } else if (type === 'reset') {
-    reset()
   }
 }
 
-function init ({ username, testMode }) {
-  if (widget.classList.contains('OtechieWidget--loaded')) {
-    widget.classList.remove('OtechieWidget--open')
-    body.classList.remove('OtechieWidget--lock')
-    widget.classList.remove('OtechieWidget--hide')
-    iframe.contentWindow.postMessage({
-      message: 'UPDATE_LOCATION',
-      location: `/${username}${testMode ? '?test=true' : ''}`
-    }, process.env.WEB_URL)
-  } else {
-    iframe.src = `${process.env.WEB_URL}/${username}${testMode ? '?test=true' : ''}`
-  }
+function init ({ username }) {
+  widget = document.createElement('div')
+  widget.id = 'otechie-widget'
+  widget.innerHTML = html
+
+  body = document.getElementsByTagName('body')[0]
+  body.appendChild(widget)
+
+  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
+  bubble.onclick = toggle
+
+  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  window.onmessage = messageReceived
+  iframe.src = `${process.env.WEB_URL}/${username}`
+  widget.classList.remove('OtechieWidget--hide')
 }
 
 function hide () {
@@ -67,14 +55,6 @@ function hide () {
 function show () {
   if (!widget) return
   widget.classList.remove('OtechieWidget--hide')
-}
-
-function reset () {
-  if (!iframe) return
-  widget.classList.remove('OtechieWidget--loaded')
-  iframe.contentWindow.postMessage({
-    message: 'RESET'
-  }, process.env.WEB_URL)
 }
 
 function messageReceived (event) {
