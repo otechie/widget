@@ -7,8 +7,9 @@ let widget
 let bubble
 
 function app (window) {
-  if (!window.Otechie) return
-  window.Otechie.q.forEach(command => main(command[0], command[1]))
+  if (window.Otechie && window.Otechie.q) {
+    window.Otechie.q.forEach(command => main(command[0], command[1]))
+  }
   window.Otechie = main
 }
 
