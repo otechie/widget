@@ -6,7 +6,13 @@ let body
 let widget
 let bubble
 
-function app (type, args) {
+function app (window) {
+  if (!window.Otechie) return
+  window.Otechie.q.forEach(command => main(command[0], command[1]))
+  window.Otechie = main
+}
+
+function main (type, args) {
   switch (type) {
     case 'init': return init(args)
     case 'hide': return hide()
@@ -70,5 +76,4 @@ function toggle () {
   }
 }
 
-window.Otechie.q.forEach(command => app(command[0], command[1]))
-window.Otechie = app
+app(window)
