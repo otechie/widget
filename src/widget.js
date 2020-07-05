@@ -6,25 +6,12 @@ let body
 let widget
 let bubble
 
-function app (window) {
-  const globalObject = window[window['Otechie-Widget']]
-  const queue = globalObject.q
-  if (queue) {
-    for (var i = 0; i < queue.length; i++) {
-      const command = queue[i]
-      main(command[0], command[1])
-    }
-  }
-  window[window['Otechie-Widget']] = main
-}
-
-function main (type, args) {
-  if (type === 'init') {
-    init(args)
-  } else if (type === 'hide') {
-    hide()
-  } else if (type === 'show') {
-    show()
+function app (type, args) {
+  switch (type) {
+    case 'init': return init(args)
+    case 'hide': return hide()
+    case 'show': return show()
+    default: return
   }
 }
 
@@ -83,4 +70,5 @@ function toggle () {
   }
 }
 
-app(window)
+window.Otechie.q.forEach(command => app(command[0], command[1]))
+window.Otechie = app
