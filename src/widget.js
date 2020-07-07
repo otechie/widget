@@ -7,6 +7,18 @@ let widget
 let bubble
 
 function app (window) {
+  widget = document.createElement('div')
+  widget.id = 'otechie-widget'
+  widget.innerHTML = html
+
+  body = document.getElementsByTagName('body')[0]
+  body.appendChild(widget)
+
+  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
+  bubble.onclick = toggle
+
+  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  window.onmessage = messageReceived
   if (window.Otechie && window.Otechie.q) {
     window.Otechie.q.forEach(command => main(command[0], command[1]))
   }
@@ -23,20 +35,11 @@ function main (type, args) {
 }
 
 function init ({ username }) {
-  widget = document.createElement('div')
-  widget.id = 'otechie-widget'
-  widget.innerHTML = html
-
-  body = document.getElementsByTagName('body')[0]
-  body.appendChild(widget)
-
-  bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = toggle
-
-  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  window.onmessage = messageReceived
-  iframe.src = `${process.env.WEB_URL}/${username}`
   widget.classList.remove('OtechieWidget--hide')
+  if (iframe.src !== `${process.env.WEB_URL}/${username}`) {
+    widget.classList.remove('OtechieWidget--loaded')
+    iframe.src = `${process.env.WEB_URL}/${username}`
+  }
 }
 
 function hide () {
