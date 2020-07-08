@@ -7,14 +7,6 @@ let widget
 let bubble
 
 function app (window) {
-  const globalObject = window[window['Otechie-Widget']]
-  const queue = globalObject.q
-  if (queue && queue.length && queue[0].length > 1 && queue[0][1].username) {
-    inject(queue[0][1].username)
-  }
-}
-
-function inject (username) {
   widget = document.createElement('div')
   widget.id = 'otechie-widget'
   widget.innerHTML = html
@@ -26,9 +18,42 @@ function inject (username) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  iframe.src = `${process.env.WEB_URL}/${username}`
-
   window.onmessage = messageReceived
+  const otechie = window.Otechie || window.ow
+  if (otechie && otechie.q) {
+    otechie.q.forEach(command => main(command[0], command[1]))
+  }
+  window.Otechie = main
+  window.ow = main
+}
+
+function main (type, args) {
+  switch (type) {
+    case 'init': return init(args)
+    case 'hide': return hide()
+    case 'show': return show()
+    default: return
+  }
+}
+
+function init ({ username }) {
+  widget.classList.remove('OtechieWidget--hide')
+  if (iframe.src !== `${process.env.WEB_URL}/${username}`) {
+    widget.classList.remove('OtechieWidget--loaded')
+    iframe.src = `${process.env.WEB_URL}/${username}`
+  }
+}
+
+function hide () {
+  if (!widget) return
+  widget.classList.remove('OtechieWidget--open')
+  body.classList.remove('OtechieWidget--lock')
+  widget.classList.add('OtechieWidget--hide')
+}
+
+function show () {
+  if (!widget) return
+  widget.classList.remove('OtechieWidget--hide')
 }
 
 function messageReceived (event) {
@@ -42,14 +67,7 @@ function messageReceived (event) {
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
     default:
-      // Legacy
-      if (event.data === 'close') {
-        return toggle()
-      } else if (event.data.widgetColor) {
-        bubble.style.backgroundColor = event.data.widgetColor
-        widget.classList.add('OtechieWidget--loaded')
-        return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
-      }
+      return
   }
 }
 
