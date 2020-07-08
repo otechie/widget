@@ -19,10 +19,12 @@ function app (window) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   window.onmessage = messageReceived
-  if (window.Otechie && window.Otechie.q) {
-    window.Otechie.q.forEach(command => main(command[0], command[1]))
+  const otechie = window.Otechie || window.ow
+  if (otechie && otechie.q) {
+    otechie.q.forEach(command => main(command[0], command[1]))
   }
   window.Otechie = main
+  window.ow = main
 }
 
 function main (type, args) {
