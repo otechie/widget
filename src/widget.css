@@ -97,7 +97,7 @@
     transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
 }
 
-@media (max-width: 767px) {
+@media (max-device-width: 767px) {
     .OtechieWidget--iframe {
         z-index: -10000;
         width: 100%;
