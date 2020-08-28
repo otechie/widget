@@ -38,9 +38,9 @@ function main (type, args) {
 
 function init ({ username }) {
   widget.classList.remove('OtechieWidget--hide')
-  if (iframe.src !== `${process.env.WEB_URL}/${username}`) {
+  if (iframe.src !== `${process.env.WEB_URL}/${username}/widget`) {
     widget.classList.remove('OtechieWidget--loaded')
-    iframe.src = `${process.env.WEB_URL}/${username}`
+    iframe.src = `${process.env.WEB_URL}/${username}/widget`
   }
 }
 
