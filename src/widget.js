@@ -29,10 +29,16 @@ function app (window) {
 
 function main (type, args) {
   switch (type) {
-    case 'init': return init(args)
-    case 'hide': return hide()
-    case 'show': return show()
-    default: return
+    case 'init':
+      return init(args)
+    case 'hide':
+      return hide()
+    case 'show':
+      return show()
+    case 'open':
+      return open()
+    default:
+      return
   }
 }
 
@@ -81,6 +87,12 @@ function toggle () {
     body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
   }
+}
+
+function open () {
+  widget.classList.add('OtechieWidget--open')
+  body.classList.add('OtechieWidget--lock')
+  iframe.contentWindow.focus()
 }
 
 app(window)
