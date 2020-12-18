@@ -37,6 +37,8 @@ function main (type, args) {
       return show()
     case 'open':
       return open()
+    case 'close':
+      return close()
     default:
       return
   }
@@ -93,6 +95,11 @@ function open () {
   widget.classList.add('OtechieWidget--open')
   body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
+}
+
+function close () {
+  widget.classList.remove('OtechieWidget--open')
+  body.classList.remove('OtechieWidget--lock')
 }
 
 app(window)
