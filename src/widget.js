@@ -7,6 +7,12 @@ let widget
 let bubble
 
 function app (window) {
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      close()
+    }
+  })
+
   widget = document.createElement('div')
   widget.id = 'otechie-widget'
   widget.innerHTML = html
@@ -70,7 +76,7 @@ function messageReceived (event) {
 
   switch (event.data.message) {
     case 'CLOSE_WIDGET':
-      return toggle()
+      return close()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
       widget.classList.add('OtechieWidget--loaded')
