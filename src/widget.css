@@ -89,7 +89,7 @@
 
 .OtechieWidget--open .OtechieWidget--iframe {
     z-index: 10005;
-    transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
+    transition: opacity 0.2s linear, transform 0.3s ease-out, visibility 0.3s linear;
     opacity: 1;
     transform: none !important;
     visibility: visible;
