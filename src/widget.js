@@ -50,9 +50,10 @@ function main (type, args) {
   }
 }
 
-function init ({ username }) {
+function init ({ username, team }) {
   widget.classList.remove('OtechieWidget--hide')
-  const url = `${process.env.WEB_URL}/${username}/widget`
+  const teamId = team || username
+  const url = `${process.env.WEB_URL}/${teamId}/widget`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
     iframe.src = url
