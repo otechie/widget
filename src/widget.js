@@ -45,6 +45,8 @@ function main (type, args) {
       return open()
     case 'close':
       return close()
+    case 'setColor':
+      return setColor(args)
     default:
       return
   }
@@ -72,6 +74,11 @@ function show () {
   widget.classList.remove('OtechieWidget--hide')
 }
 
+function setColor ({ color }) {
+  if (!bubble) return
+  bubble.style.backgroundColor = color
+}
+
 function messageReceived (event) {
   if (event.origin !== process.env.WEB_URL) return
 
@@ -79,7 +86,7 @@ function messageReceived (event) {
     case 'CLOSE_WIDGET':
       return close()
     case 'SET_COLOR':
-      bubble.style.backgroundColor = event.data.color
+      setColor(event.data)
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
     default:
