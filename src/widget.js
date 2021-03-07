@@ -46,6 +46,7 @@ function main (type, args) {
     case 'close':
       return close()
     case 'setColor':
+      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.WEB_URL)
       return setColor(args)
     default:
       return
@@ -88,7 +89,7 @@ function messageReceived (event) {
     case 'SET_COLOR':
       setColor(event.data)
       widget.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
     default:
       return
   }
@@ -106,7 +107,6 @@ function open () {
   widget.classList.add('OtechieWidget--open')
   body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
-  iframe.contentWindow.postMessage({ message: 'OPEN' }, process.env.WEB_URL)
 }
 
 function close () {
