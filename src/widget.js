@@ -46,7 +46,7 @@ function main (type, args) {
     case 'close':
       return close()
     case 'setColor':
-      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.APP_URL)
+      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.WEB_URL)
       return setColor(args)
     default:
       return
@@ -56,7 +56,7 @@ function main (type, args) {
 function init ({ username, team }) {
   widget.classList.remove('OtechieWidget--hide')
   const teamId = team || username
-  const url = `${process.env.APP_URL}/${teamId}/widget`
+  const url = `${process.env.WEB_URL}/${teamId}/widget`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
     iframe.src = url
@@ -81,7 +81,7 @@ function setColor ({ color }) {
 }
 
 function messageReceived (event) {
-  if (event.origin !== process.env.APP_URL) return
+  if (event.origin !== process.env.WEB_URL) return
 
   switch (event.data.message) {
     case 'CLOSE_WIDGET':
@@ -89,7 +89,7 @@ function messageReceived (event) {
     case 'SET_COLOR':
       setColor(event.data)
       widget.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.APP_URL)
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
     default:
       return
   }
