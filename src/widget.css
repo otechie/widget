@@ -25,6 +25,7 @@
     width: 52px;
     border-radius: 12px;
     color: white;
+    background-color: #549DFF;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
     visibility: hidden;
     user-select: none;

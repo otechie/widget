@@ -5,6 +5,7 @@ let iframe
 let body
 let widget
 let bubble
+let profileUrl
 
 function app (window) {
   window.addEventListener('keydown', (e) => {
@@ -57,10 +58,8 @@ function init ({ username, team }) {
   widget.classList.remove('OtechieWidget--hide')
   const teamId = team || username
   const url = `${process.env.WEB_URL}/${teamId}/widget`
-  if (iframe.src !== url) {
-    widget.classList.remove('OtechieWidget--loaded')
-    iframe.src = url
-  }
+  profileUrl = `${process.env.WEB_URL}/${teamId}`
+  widget.classList.add('OtechieWidget--loaded')
 }
 
 function hide () {
@@ -104,9 +103,9 @@ function toggle () {
 }
 
 function open () {
-  widget.classList.add('OtechieWidget--open')
-  body.classList.add('OtechieWidget--lock')
-  iframe.contentWindow.focus()
+  if (profileUrl) {
+    window.location = profileUrl
+  }
 }
 
 function close () {
