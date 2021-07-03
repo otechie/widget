@@ -5,6 +5,7 @@ let iframe
 let body
 let widget
 let bubble
+let logo
 
 function app (window) {
   widget = document.createElement('div')
@@ -18,6 +19,7 @@ function app (window) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  logo = document.getElementsByClassName('OtechieWidget--logo')[0]
   window.onmessage = messageReceived
   const otechie = window.Otechie || window.ow
   if (otechie && otechie.q) {
@@ -73,6 +75,8 @@ function messageReceived (event) {
       return toggle()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
+      iframe.style.height = event.data.height
+      logo.src = event.data.avatarUrl
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
     default:
