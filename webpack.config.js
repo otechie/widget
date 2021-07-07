@@ -10,7 +10,7 @@ module.exports = (env) => {
     ? [new webpack.SourceMapDevToolPlugin()]
     : []
   plugins.push(
-    new CopyWebpackPlugin([{ from: 'demo/' }]),
+    new CopyWebpackPlugin({ patterns: [{ from: 'demo/' }] }),
     new webpack.EnvironmentPlugin({ WEB_URL: 'https://dev-otechie.com' })
   )
   return [{
@@ -18,7 +18,7 @@ module.exports = (env) => {
     entry: './src/widget.js',
     output: {
       filename: 'widget.js',
-      path: path.resolve(bundleOutputDir),
+      path: path.resolve(bundleOutputDir)
     },
     devServer: {
       contentBase: bundleOutputDir
