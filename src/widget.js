@@ -41,18 +41,27 @@ function main (type, args) {
       return open()
     case 'close':
       return close()
+    case 'setColor':
+      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.WEB_URL)
+      return setColor(args)
     default:
       return
   }
 }
 
-function init ({ username }) {
+function init ({ username, team }) {
   widget.classList.remove('OtechieWidget--hide')
-  const url = `${process.env.WEB_URL}/${username}/widget`
+  const teamId = team || username
+  const url = `${process.env.WEB_URL}/${teamId}/widget`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
     iframe.src = url
   }
+}
+
+function setColor ({ color }) {
+  if (!bubble) return
+  bubble.style.backgroundColor = color
 }
 
 function hide () {
@@ -77,7 +86,7 @@ function messageReceived (event) {
       iframe.style.height = event.data.height
       logo.src = event.data.avatarUrl
       widget.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.href }, process.env.WEB_URL)
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
     default:
       return
   }
