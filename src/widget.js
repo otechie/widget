@@ -58,7 +58,6 @@ function init ({ username }) {
 function hide () {
   if (!widget) return
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
   widget.classList.add('OtechieWidget--hide')
 }
 
@@ -72,7 +71,7 @@ function messageReceived (event) {
 
   switch (event.data.message) {
     case 'CLOSE_WIDGET':
-      return toggle()
+      return close()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
       iframe.style.height = event.data.height
@@ -87,23 +86,19 @@ function messageReceived (event) {
 function toggle () {
   if (widget.classList.contains('OtechieWidget--open')) {
     widget.classList.remove('OtechieWidget--open')
-    body.classList.remove('OtechieWidget--lock')
   } else {
     widget.classList.add('OtechieWidget--open')
-    body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
   }
 }
 
 function open () {
   widget.classList.add('OtechieWidget--open')
-  body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
 }
 
 function close () {
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
 }
 
 app(window)
