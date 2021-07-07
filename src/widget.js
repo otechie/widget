@@ -94,10 +94,9 @@ function messageReceived (event) {
 
 function toggle () {
   if (widget.classList.contains('OtechieWidget--open')) {
-    widget.classList.remove('OtechieWidget--open')
+    close()
   } else {
-    widget.classList.add('OtechieWidget--open')
-    iframe.contentWindow.focus()
+    open()
   }
 }
 
