@@ -5,15 +5,9 @@ let iframe
 let body
 let widget
 let bubble
-let profileUrl
+let logo
 
 function app (window) {
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      close()
-    }
-  })
-
   widget = document.createElement('div')
   widget.id = 'otechie-widget'
   widget.innerHTML = html
@@ -25,6 +19,7 @@ function app (window) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  logo = document.getElementsByClassName('OtechieWidget--logo')[0]
   window.onmessage = messageReceived
   const otechie = window.Otechie || window.ow
   if (otechie && otechie.q) {
@@ -58,25 +53,26 @@ function init ({ username, team }) {
   widget.classList.remove('OtechieWidget--hide')
   const teamId = team || username
   const url = `${process.env.WEB_URL}/${teamId}/widget`
-  profileUrl = `${process.env.WEB_URL}/${teamId}`
-  widget.classList.add('OtechieWidget--loaded')
+  if (iframe.src !== url) {
+    widget.classList.remove('OtechieWidget--loaded')
+    iframe.src = url
+  }
+}
+
+function setColor ({ color }) {
+  if (!bubble) return
+  bubble.style.backgroundColor = color
 }
 
 function hide () {
   if (!widget) return
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
   widget.classList.add('OtechieWidget--hide')
 }
 
 function show () {
   if (!widget) return
   widget.classList.remove('OtechieWidget--hide')
-}
-
-function setColor ({ color }) {
-  if (!bubble) return
-  bubble.style.backgroundColor = color
 }
 
 function messageReceived (event) {
@@ -86,7 +82,9 @@ function messageReceived (event) {
     case 'CLOSE_WIDGET':
       return close()
     case 'SET_COLOR':
-      setColor(event.data)
+      bubble.style.backgroundColor = event.data.color
+      iframe.style.height = event.data.height
+      logo.src = event.data.avatarUrl
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
     default:
@@ -103,14 +101,12 @@ function toggle () {
 }
 
 function open () {
-  if (profileUrl) {
-    window.location = profileUrl
-  }
+  widget.classList.add('OtechieWidget--open')
+  iframe.contentWindow.focus()
 }
 
 function close () {
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
 }
 
 app(window)
