@@ -82,7 +82,6 @@ function messageReceived (event) {
     case 'CLOSE_WIDGET':
       return close()
     case 'SET_COLOR':
-      console.log('SET_COLOR', event.data)
       bubble.style.backgroundColor = event.data.color
       if (event.data.height) {
         iframe.style.height = `${event.data.height}px`
