@@ -49,9 +49,9 @@ function main (type, args) {
   }
 }
 
-function init ({ username, team }) {
+function init ({ username, account }) {
   widget.classList.remove('OtechieWidget--hide')
-  const teamId = team || username
+  const teamId = account || username
   const url = `${process.env.WEB_URL}/${teamId}/widget`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
