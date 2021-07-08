@@ -10,7 +10,7 @@ module.exports = (env) => {
     ? [new webpack.SourceMapDevToolPlugin()]
     : []
   plugins.push(
-    new CopyWebpackPlugin({ patterns: [{ from: 'demo/' }] }),
+    new CopyWebpackPlugin([{ from: 'demo/' }]),
     new webpack.EnvironmentPlugin({ WEB_URL: 'https://dev-otechie.com' })
   )
   return [{
