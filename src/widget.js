@@ -42,7 +42,7 @@ function main (type, args) {
     case 'close':
       return close()
     case 'setColor':
-      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.WEB_URL)
+      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, '*')
       return setColor(args)
     default:
       return
