@@ -86,7 +86,7 @@ function messageReceived (event) {
       iframe.style.height = event.data.height
       logo.src = event.data.avatarUrl
       widget.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
       return
   }
