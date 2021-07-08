@@ -84,8 +84,12 @@ function messageReceived (event) {
     case 'SET_COLOR':
       console.log('SET_COLOR', event.data)
       bubble.style.backgroundColor = event.data.color
-      iframe.style.height = `${event.data.height}px`
-      logo.src = event.data.avatarUrl
+      if (event.data.height) {
+        iframe.style.height = `${event.data.height}px`
+      }
+      if (event.data.avatarUrl) {
+        logo.src = event.data.avatarUrl
+      }
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
