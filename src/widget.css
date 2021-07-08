@@ -43,10 +43,11 @@
 }
 
 .OtechieWidget--logo {
-    padding: 2px;
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    padding: 0 !important;
+    margin: 2px !important;
+    width: 80px !important;
+    height: 80px !important;
+    border-radius: 50% !important;
 }
 
 .OtechieWidget--open .OtechieWidget--iframe-wrapper {
