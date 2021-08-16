@@ -13,6 +13,7 @@
 .OtechieWidget--iframe {
     width: 386px;
     box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
+    border-radius: 12px;
     height: 100%;
     border: none;
     overflow: hidden;
@@ -133,6 +134,7 @@
 @media (max-device-width: 767px) {
     .OtechieWidget--iframe {
         width: 100%;
+        border-radius: 0;
     }
 
     .OtechieWidget--iframe-wrapper {
