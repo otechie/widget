@@ -52,11 +52,18 @@ function main (type, args) {
 function init ({ username, account }) {
   widget.classList.remove('OtechieWidget--hide')
   const teamId = account || username
-  const url = `${process.env.WEB_URL}/${teamId}/widget`
+  // const url = `${process.env.WEB_URL}/${teamId}/widget`
+  const url = `http://localhost:8081/widget/${teamId}`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
     iframe.src = url
   }
+  // bubble.style.backgroundColor = 'red'
+  // iframe.style.height = `600px`
+  // if (event.data.avatarUrl) {
+  //   logo.src = event.data.avatarUrl
+  // }
+  // widget.classList.add('OtechieWidget--loaded')
 }
 
 function setColor ({ color }) {
@@ -76,7 +83,7 @@ function show () {
 }
 
 function messageReceived (event) {
-  if (event.origin !== process.env.WEB_URL) return
+  if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
     case 'CLOSE_WIDGET':
@@ -85,9 +92,6 @@ function messageReceived (event) {
       bubble.style.backgroundColor = event.data.color
       if (event.data.height) {
         iframe.style.height = `${event.data.height}px`
-      }
-      if (event.data.avatarUrl) {
-        logo.src = event.data.avatarUrl
       }
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
