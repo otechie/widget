@@ -11,14 +11,17 @@ module.exports = (env) => {
     : []
   plugins.push(
     new CopyWebpackPlugin([{ from: 'demo/' }]),
-    new webpack.EnvironmentPlugin({ WEB_URL: 'https://app.dev-otechie.com' })
+    new webpack.EnvironmentPlugin({
+      WEB_URL: 'https://dev-otechie.com',
+      APP_URL: 'https://app.dev-otechie.com'
+    })
   )
   return [{
     mode: isDevBuild ? 'development' : 'production',
     entry: './src/widget.js',
     output: {
       filename: 'widget.js',
-      path: path.resolve(bundleOutputDir),
+      path: path.resolve(bundleOutputDir)
     },
     devServer: {
       contentBase: bundleOutputDir
