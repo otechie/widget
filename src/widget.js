@@ -52,18 +52,11 @@ function main (type, args) {
 function init ({ username, account }) {
   widget.classList.remove('OtechieWidget--hide')
   const teamId = account || username
-  // const url = `${process.env.WEB_URL}/${teamId}/widget`
-  const url = `http://localhost:8081/widget/${teamId}`
+  const url = `${process.env.WEB_URL}/widget/${teamId}`
   if (iframe.src !== url) {
     widget.classList.remove('OtechieWidget--loaded')
     iframe.src = url
   }
-  // bubble.style.backgroundColor = 'red'
-  // iframe.style.height = `600px`
-  // if (event.data.avatarUrl) {
-  //   logo.src = event.data.avatarUrl
-  // }
-  // widget.classList.add('OtechieWidget--loaded')
 }
 
 function setColor ({ color }) {
