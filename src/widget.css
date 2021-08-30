@@ -1,59 +1,25 @@
-.OtechieWidget--iframe-wrapper {
+.OtechieWidget--iframe {
     z-index: 10002;
     position: fixed;
     bottom: 88px;
     right: 20px;
-    top: 20px;
     opacity: 0;
     transform: translate(0, 16px);
     transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear, z-index 0.15s 0.15s linear;
     visibility: hidden;
-}
-
-.OtechieWidget--iframe {
     width: 386px;
     box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
     border-radius: 12px;
-    height: 100%;
+    height: calc(100% - 120px);
     border: none;
     overflow: hidden;
     user-select: none;
-}
-
-.OtechieWidget--logo-wrapper {
-    position: relative;
-    width: 84px;
-    height: 84px;
-    margin-left: 24px;
-    margin-bottom: -45px;
     background-color: white;
-    border-radius: 50%;
 }
 
-.OtechieWidget--logo-wrapper:before {
-    border-radius: 50%;
-    background: transparent;
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: -1;
-    box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
-}
-
-.OtechieWidget--logo {
-    padding: 0 !important;
-    margin: 2px !important;
-    width: 80px !important;
-    height: 80px !important;
-    border-radius: 50% !important;
-}
-
-.OtechieWidget--open .OtechieWidget--iframe-wrapper {
+.OtechieWidget--open .OtechieWidget--iframe {
     z-index: 10002;
-    transition: opacity 0.3s linear, transform 0.3s ease-out, visibility 0.3s linear;
+    transition: opacity 0.3s linear, transform 0.3s ease-out;
     opacity: 1;
     transform: none !important;
     visibility: visible;
@@ -133,16 +99,13 @@
 
 @media (max-device-width: 767px) {
     .OtechieWidget--iframe {
-        width: 100%;
-        border-radius: 0;
-    }
-
-    .OtechieWidget--iframe-wrapper {
         z-index: -10000;
         top: 0;
         right: 0;
         bottom: 0;
         left: 0;
+        width: 100%;
+        border-radius: 0;
     }
 
     .OtechieWidget--open .OtechieWidget--bubble {

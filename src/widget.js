@@ -5,7 +5,6 @@ let iframe
 let body
 let widget
 let bubble
-let logo
 
 function app (window) {
   widget = document.createElement('div')
@@ -19,7 +18,6 @@ function app (window) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  logo = document.getElementsByClassName('OtechieWidget--logo')[0]
   window.onmessage = messageReceived
   const otechie = window.Otechie || window.ow
   if (otechie && otechie.q) {
