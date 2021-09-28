@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "license": "UNLICENSED",
   "private": true,
-  "copyright": "© 2020 Otechie, Inc",
+  "copyright": "© 2021 Otechie, Inc",
   "homepage": "http://widget.otechie.com",
   "author": "Dylan Wight <dylan@otechie.com>",
   "scripts": {
     "build-dev": "./node_modules/.bin/webpack --config webpack.config.js",
     "build": "./node_modules/.bin/webpack --config webpack.config.js --env.prod",
-    "dev": "cross-env WEB_URL=http://localhost:8080 yarn start",
+    "dev": "cross-env WEB_URL=http://localhost:8080 APP_URL=http://localhost:8081 yarn start",
     "start": "./node_modules/.bin/webpack-dev-server --open"
   },
   "devDependencies": {

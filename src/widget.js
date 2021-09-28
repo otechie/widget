@@ -5,15 +5,8 @@ let iframe
 let body
 let widget
 let bubble
-let profileUrl
 
 function app (window) {
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      close()
-    }
-  })
-
   widget = document.createElement('div')
   widget.id = 'otechie-widget'
   widget.innerHTML = html
@@ -47,25 +40,31 @@ function main (type, args) {
     case 'close':
       return close()
     case 'setColor':
-      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, process.env.WEB_URL)
+      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, '*')
       return setColor(args)
     default:
       return
   }
 }
 
-function init ({ username, team }) {
+function init ({ username, account }) {
   widget.classList.remove('OtechieWidget--hide')
-  const teamId = team || username
-  const url = `${process.env.WEB_URL}/${teamId}/widget`
-  profileUrl = `${process.env.WEB_URL}/${teamId}`
-  widget.classList.add('OtechieWidget--loaded')
+  const teamId = account || username
+  const url = `${process.env.APP_URL}/widget/${teamId}`
+  if (iframe.src !== url) {
+    widget.classList.remove('OtechieWidget--loaded')
+    iframe.src = url
+  }
+}
+
+function setColor ({ color }) {
+  if (!bubble) return
+  bubble.style.backgroundColor = color
 }
 
 function hide () {
   if (!widget) return
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
   widget.classList.add('OtechieWidget--hide')
 }
 
@@ -74,21 +73,19 @@ function show () {
   widget.classList.remove('OtechieWidget--hide')
 }
 
-function setColor ({ color }) {
-  if (!bubble) return
-  bubble.style.backgroundColor = color
-}
-
 function messageReceived (event) {
-  if (event.origin !== process.env.WEB_URL) return
+  if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
     case 'CLOSE_WIDGET':
       return close()
     case 'SET_COLOR':
-      setColor(event.data)
+      bubble.style.backgroundColor = event.data.color
+      if (event.data.height) {
+        iframe.style.height = `${event.data.height}px`
+      }
       widget.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, process.env.WEB_URL)
+      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
       return
   }
@@ -103,14 +100,12 @@ function toggle () {
 }
 
 function open () {
-  if (profileUrl) {
-    window.location = profileUrl
-  }
+  widget.classList.add('OtechieWidget--open')
+  iframe.contentWindow.focus()
 }
 
 function close () {
   widget.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
 }
 
 app(window)
