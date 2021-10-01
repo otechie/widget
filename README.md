@@ -1,6 +1,10 @@
-## Otechie Live Chat Widget
+# Otechie Live Chat Widget
 
-Install with
+![image](https://user-images.githubusercontent.com/16690226/135666011-676b95b0-c83d-4cb7-8fab-560d0bb2f5de.png)
+
+
+# Installation 
+Paste the code below before the </head> tag on your website where you want the contact widget to appear. Check out the documentation to see how to control the contact widget and bubble.
 ```
 <script>
     // We pre-filled your account id in the widget code below: '5cb73b39df75b2a1b2b6263f'
