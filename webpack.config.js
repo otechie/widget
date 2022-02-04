@@ -13,7 +13,7 @@ module.exports = (env) => {
     new CopyWebpackPlugin([{ from: 'demo/' }]),
     new webpack.EnvironmentPlugin({
       WEB_URL: 'https://dev-otechie.com',
-      APP_URL: 'https://app.dev-otechie.com'
+      APP_URL: 'https://chat.dev-otechie.com'
     })
   )
   return [{
