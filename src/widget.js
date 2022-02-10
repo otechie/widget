@@ -19,12 +19,11 @@ function app (window) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   window.onmessage = messageReceived
-  const otechie = window.Otechie || window.ow
+  const otechie = window.Otechie
   if (otechie && otechie.q) {
     otechie.q.forEach(command => main(command[0], command[1]))
   }
   window.Otechie = main
-  window.ow = main
 }
 
 function main (type, args) {
@@ -36,7 +35,7 @@ function main (type, args) {
     case 'show':
       return show()
     case 'open':
-      return open()
+      return open(args)
     case 'close':
       return close()
     case 'setColor':
@@ -81,9 +80,6 @@ function messageReceived (event) {
       return close()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
-      if (event.data.height) {
-        iframe.style.height = `${event.data.height}px`
-      }
       widget.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
@@ -99,9 +95,13 @@ function toggle () {
   }
 }
 
-function open () {
-  widget.classList.add('OtechieWidget--open')
-  iframe.contentWindow.focus()
+function open (args) {
+  const delay = args && args.delay ? args.delay : 0
+  setTimeout(function () {
+    widget.classList.add('OtechieWidget--open')
+    iframe.contentWindow.focus()
+  }, delay)
+
 }
 
 function close () {
