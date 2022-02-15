@@ -41,8 +41,9 @@ function main (type, args) {
     case 'reset':
       return reset()
     case 'setColor':
-      iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, '*')
       return setColor(args)
+    case 'update':
+      return iframe.contentWindow.postMessage({ message: 'UPDATE' }, '*')
     default:
       return
   }
