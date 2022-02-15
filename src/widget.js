@@ -38,6 +38,8 @@ function main (type, args) {
       return open(args)
     case 'close':
       return close()
+    case 'reset':
+      return reset()
     case 'setColor':
       iframe.contentWindow.postMessage({ ...args, message: 'SET_COLOR' }, '*')
       return setColor(args)
@@ -106,6 +108,14 @@ function open (args) {
 
 function close () {
   widget.classList.remove('OtechieWidget--open')
+}
+
+function reset () {
+  const url = iframe.src
+  iframe.src = null
+  widget.classList.remove('OtechieWidget--loaded')
+  iframe.contentWindow.postMessage({ message: 'RESET' }, '*')
+  iframe.src = url
 }
 
 app(window)
