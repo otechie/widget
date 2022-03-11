@@ -13,14 +13,14 @@ module.exports = (env) => {
     new CopyWebpackPlugin([{ from: 'demo/' }]),
     new webpack.EnvironmentPlugin({
       WEB_URL: 'https://dev-otechie.com',
-      APP_URL: 'https://app.dev-otechie.com'
+      APP_URL: 'https://chat.dev-otechie.com'
     })
   )
   return [{
     mode: isDevBuild ? 'development' : 'production',
-    entry: './src/widget.js',
+    entry: './src/index.js',
     output: {
-      filename: 'widget.js',
+      filename: 'index.js',
       path: path.resolve(bundleOutputDir)
     },
     devServer: {
