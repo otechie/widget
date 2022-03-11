@@ -30,7 +30,7 @@ workflows:
           context: production
           filters:
             branches:
-              only: master
+              only: main
           domain: 'widget.otechie.com'
       - deploy:
           context: development
