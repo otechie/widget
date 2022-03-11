@@ -14,7 +14,6 @@
     border: none;
     overflow: hidden;
     user-select: none;
-    background-color: white;
 }
 
 .OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--iframe {
