@@ -18,9 +18,9 @@ module.exports = (env) => {
   )
   return [{
     mode: isDevBuild ? 'development' : 'production',
-    entry: './src/widget.js',
+    entry: './src/index.js',
     output: {
-      filename: 'widget.js',
+      filename: 'index.js',
       path: path.resolve(bundleOutputDir)
     },
     devServer: {

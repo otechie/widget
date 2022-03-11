@@ -3,16 +3,16 @@ import './widget.css'
 
 let iframe
 let body
-let widget
+let index
 let bubble
 
 function app (window) {
-  widget = document.createElement('div')
-  widget.id = 'otechie-widget'
-  widget.innerHTML = html
+  index = document.createElement('div')
+  index.id = 'otechie-widget'
+  index.innerHTML = html
 
   body = document.getElementsByTagName('body')[0]
-  body.appendChild(widget)
+  body.appendChild(index)
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
   bubble.onclick = toggle
@@ -52,11 +52,11 @@ function main (type, args) {
 }
 
 function init ({ username, account, workspace }) {
-  widget.classList.remove('OtechieWidget--hide')
+  index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
   const url = `${process.env.APP_URL}/${teamId}/widget`
   if (iframe.src !== url) {
-    widget.classList.remove('OtechieWidget--loaded')
+    index.classList.remove('OtechieWidget--loaded')
     iframe.src = url
   }
 }
@@ -67,14 +67,14 @@ function setColor ({ color }) {
 }
 
 function hide () {
-  if (!widget) return
-  widget.classList.remove('OtechieWidget--open')
-  widget.classList.add('OtechieWidget--hide')
+  if (!index) return
+  index.classList.remove('OtechieWidget--open')
+  index.classList.add('OtechieWidget--hide')
 }
 
 function show () {
-  if (!widget) return
-  widget.classList.remove('OtechieWidget--hide')
+  if (!index) return
+  index.classList.remove('OtechieWidget--hide')
 }
 
 function messageReceived (event) {
@@ -85,7 +85,7 @@ function messageReceived (event) {
       return close()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
-      widget.classList.add('OtechieWidget--loaded')
+      index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
       return
@@ -93,7 +93,7 @@ function messageReceived (event) {
 }
 
 function toggle () {
-  if (widget.classList.contains('OtechieWidget--open')) {
+  if (index.classList.contains('OtechieWidget--open')) {
     close()
   } else {
     open()
@@ -103,21 +103,21 @@ function toggle () {
 function open (args) {
   const delay = args && args.delay ? args.delay : 0
   setTimeout(function () {
-    widget.classList.add('OtechieWidget--open')
+    index.classList.add('OtechieWidget--open')
     body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
   }, delay)
 }
 
 function close () {
-  widget.classList.remove('OtechieWidget--open')
+  index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
 }
 
 function reset () {
   const url = iframe.src
   iframe.src = null
-  widget.classList.remove('OtechieWidget--loaded')
+  index.classList.remove('OtechieWidget--loaded')
   iframe.contentWindow.postMessage({ message: 'RESET' }, '*')
   iframe.src = url
 }
