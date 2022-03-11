@@ -36,6 +36,8 @@ function main (type, args) {
       return show()
     case 'open':
       return open(args)
+    case 'toggle':
+      return toggle()
     case 'close':
       return close()
     case 'reset':
@@ -102,13 +104,14 @@ function open (args) {
   const delay = args && args.delay ? args.delay : 0
   setTimeout(function () {
     widget.classList.add('OtechieWidget--open')
+    body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
   }, delay)
-
 }
 
 function close () {
   widget.classList.remove('OtechieWidget--open')
+  body.classList.remove('OtechieWidget--lock')
 }
 
 function reset () {
