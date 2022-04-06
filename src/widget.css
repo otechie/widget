@@ -11,6 +11,7 @@
     box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
     border-radius: 12px;
     height: calc(100% - 120px);
+    max-height: 700px;
     border: none;
     overflow: hidden;
     user-select: none;
