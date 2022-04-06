@@ -30,6 +30,8 @@ function main (type, args) {
   switch (type) {
     case 'init':
       return init(args)
+    case 'submit':
+      return iframe.contentWindow.postMessage({ message: 'SUBMIT', form: args }, '*')
     case 'hide':
       return hide()
     case 'show':
@@ -81,8 +83,14 @@ function messageReceived (event) {
   if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
+    case 'OPEN':
+      return open()
+    case 'CLOSE':
+      return close()
     case 'CLOSE_WIDGET':
       return close()
+    case 'TOGGLE':
+      return toggle()
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
       index.classList.add('OtechieWidget--loaded')
