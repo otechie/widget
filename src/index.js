@@ -5,6 +5,7 @@ let iframe
 let body
 let index
 let bubble
+let onSubmittedFunction
 
 function app (window) {
   index = document.createElement('div')
@@ -30,6 +31,10 @@ function main (type, args) {
   switch (type) {
     case 'init':
       return init(args)
+    case 'submit':
+      return submit(args)
+    case 'onSubmitted':
+      return onSubmitted(args)
     case 'hide':
       return hide()
     case 'show':
@@ -81,8 +86,17 @@ function messageReceived (event) {
   if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
+    case 'OPEN':
+      return open()
+    case 'CLOSE':
+      return close()
     case 'CLOSE_WIDGET':
       return close()
+    case 'TOGGLE':
+      return toggle()
+    case 'ON_SUBMITTED':
+      if (!onSubmittedFunction) return
+      return onSubmittedFunction(event.data)
     case 'SET_COLOR':
       bubble.style.backgroundColor = event.data.color
       index.classList.add('OtechieWidget--loaded')
@@ -120,6 +134,18 @@ function reset () {
   index.classList.remove('OtechieWidget--loaded')
   iframe.contentWindow.postMessage({ message: 'RESET' }, '*')
   iframe.src = url
+}
+
+function submit (form) {
+  return iframe.contentWindow.postMessage({ message: 'SUBMIT', form }, '*')
+}
+
+function onSubmitted (args) {
+  if (typeof args === 'function') {
+    onSubmittedFunction = args
+  } else {
+    console.error('onSubmitted must be a function')
+  }
 }
 
 app(window)
