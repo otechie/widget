@@ -17,6 +17,7 @@
 <button onclick="Otechie('reset')">
   Reset Widget
 </button>
+
 <input placeholder="test input">
 <h2>Fusce gravida vehicula vestibulum tortor pulvinar</h2>
 <p>Orci purus ante excepteur nunc nascetur rhoncus taciti ut. Ornare vitae sed. Amet suspendisse integer rutrum aliquet
@@ -79,9 +80,24 @@
   nec eu dolor eget volutpat. Magna nulla neque. Fames tempus lorem duis orci ipsum.</p>
 <script>
   // We pre-filled your username in the widget code: 'otechie-team'
-  (function(w,d,s,o,f,js,fjs,l){w[o]=w[o]||function(){(w[o].q=w[o].q||[]).push(arguments)};l=function(){js=d.createElement(s);fjs=d.getElementsByTagName(s)[0];js.id=o;js.src=f;js.type='text/javascript';js.async=1;fjs.parentNode.insertBefore(js,fjs);};if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}(window,document,'script','Otechie',`./index.js`));
-  Otechie('init', { account: 'otechie' });
-  Otechie('open', { delay: 3000 });
+  (function (w, d, s, o, f, js, fjs, l) {
+    w[o] = w[o] || function () {(w[o].q = w[o].q || []).push(arguments)}
+    l = function () {
+      js = d.createElement(s)
+      fjs = d.getElementsByTagName(s)[0]
+      js.id = o
+      js.src = f
+      js.type = 'text/javascript'
+      js.async = 1
+      fjs.parentNode.insertBefore(js, fjs)
+    }
+    if (w.attachEvent) {w.attachEvent('onload', l)} else {w.addEventListener('load', l, false)}
+  }(window, document, 'script', 'Otechie', `./index.js`))
+  Otechie('init', { account: 'otechie' })
+  Otechie('open', { delay: 3000 })
+  Otechie('onSubmitted', function ({ success, err }) {
+    console.log('==== onSubmitted', success, err)
+  })
 </script>
 </body>
 </html>
