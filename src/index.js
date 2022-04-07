@@ -6,6 +6,7 @@ let body
 let index
 let bubble
 let onSubmittedFunction
+let storedScroll = 0
 
 function app (window) {
   index = document.createElement('div')
@@ -83,7 +84,7 @@ function show () {
 }
 
 function messageReceived (event) {
-  if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
+  if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
     case 'OPEN':
@@ -117,6 +118,7 @@ function toggle () {
 function open (args) {
   const delay = args && args.delay ? args.delay : 0
   setTimeout(function () {
+    storedScroll = window.scrollY
     index.classList.add('OtechieWidget--open')
     body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
@@ -126,6 +128,13 @@ function open (args) {
 function close () {
   index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
+  if (window.innerWidth < 768) {
+    window.scrollTo({
+      top: storedScroll,
+      left: 0,
+      behavior: 'auto'
+    })
+  }
 }
 
 function reset () {
