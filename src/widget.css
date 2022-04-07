@@ -128,10 +128,6 @@
 
     .OtechieWidget--lock {
         overflow: hidden;
-    }
-
-    .OtechieWidget--lock body {
-        overflow: hidden;
         position: fixed;
     }
 }

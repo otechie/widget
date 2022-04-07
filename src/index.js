@@ -6,6 +6,7 @@ let body
 let index
 let bubble
 let onSubmittedFunction
+let storedScroll = 0
 
 function app (window) {
   index = document.createElement('div')
@@ -117,6 +118,7 @@ function toggle () {
 function open (args) {
   const delay = args && args.delay ? args.delay : 0
   setTimeout(function () {
+    storedScroll = window.scrollY
     index.classList.add('OtechieWidget--open')
     body.classList.add('OtechieWidget--lock')
     iframe.contentWindow.focus()
@@ -126,6 +128,7 @@ function open (args) {
 function close () {
   index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
+  window.scrollTo(0, storedScroll)
 }
 
 function reset () {
