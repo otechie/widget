@@ -128,7 +128,13 @@ function open (args) {
 function close () {
   index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
-  window.scrollTo(0, storedScroll)
+  if (window.innerWidth < 768) {
+    window.scrollTo({
+      top: storedScroll,
+      left: 0,
+      behavior: 'auto'
+    })
+  }
 }
 
 function reset () {
