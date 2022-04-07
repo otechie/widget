@@ -25,9 +25,6 @@ function app (window) {
     otechie.q.forEach(command => main(command[0], command[1]))
   }
   window.Otechie = main
-  window.addEventListener('resize', function () {
-    document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`)
-  })
 }
 
 function main (type, args) {
@@ -86,7 +83,7 @@ function show () {
 }
 
 function messageReceived (event) {
-  if (event.origin !== process.env.WEB_URL && event.origin !== process.env.APP_URL) return
+  if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
     case 'OPEN':
