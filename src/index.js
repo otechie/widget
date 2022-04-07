@@ -25,6 +25,9 @@ function app (window) {
     otechie.q.forEach(command => main(command[0], command[1]))
   }
   window.Otechie = main
+  window.addEventListener('resize', function () {
+    document.documentElement.style.setProperty('--window-inner-height', `${window.innerHeight}px`)
+  })
 }
 
 function main (type, args) {

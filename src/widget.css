@@ -1,3 +1,7 @@
+:root {
+    --window-inner-height: 0;
+}
+
 .OtechieWidget--iframe {
     z-index: 10002;
     position: fixed;
@@ -126,6 +130,7 @@
     }
 
     .OtechieWidget--lock {
-        overflow-y: hidden;
+        overflow: hidden;
+        height: calc(var(--window-inner-height) - 1px);
     }
 }
