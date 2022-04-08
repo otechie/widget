@@ -17,6 +17,34 @@
     user-select: none;
 }
 
+.OtechieWidget--popup {
+    bottom: 88px;
+    right: 20px;
+    z-index: 10000;
+    position: fixed;
+    width: 286px;
+}
+
+.OtechieWidget--video {
+    /*overflow: hidden;*/
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
+    margin-bottom: 16px;
+
+}
+
+.OtechieWidget--intro {
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
+    background-color: white;
+    color: #535353;
+    font-size: 16px;
+    padding: 12px;
+    overflow: hidden;
+    line-height: 1.5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 .OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--iframe {
     z-index: 10002;
     transition: opacity 0.3s linear, transform 0.3s ease-out;
