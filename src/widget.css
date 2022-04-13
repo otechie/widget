@@ -83,7 +83,8 @@
 }
 
 .OtechieWidget--bubble {
-    background: linear-gradient(45deg, #833ab4, #c13584, #e1306c);
+    /*background: linear-gradient(45deg, #833ab4, #c13584, #e1306c);*/
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%);
     padding: 2px;
     /*border: 2px red solid;*/
     border-radius: 50%;
@@ -98,12 +99,31 @@
     transition: opacity 0.3s linear;
     overflow: hidden;
     opacity: 0;
+    animation: rotation 2s;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 5;
+    animation-delay: 30s;
 }
+
+@keyframes rotation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(359deg);
+    }
+}
+
 
 .OtechieWidget--inner-bubble {
     background-color: white;
     padding: 2px;
     border-radius: 50%;
+    animation: rotation 2s;
+    animation-direction: reverse;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: 5;
+    animation-delay: 30s;
 }
 
 .OtechieWidget--fade {
