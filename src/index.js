@@ -2,6 +2,7 @@ import html from './widget.html'
 import './widget.css'
 
 let iframe
+let popup
 let body
 let index
 let bubble
@@ -20,6 +21,8 @@ function app (window) {
   bubble.onclick = toggle
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  popup = document.getElementsByClassName('OtechieWidget--popup')[0]
+
   window.onmessage = messageReceived
   const otechie = window.Otechie
   if (otechie && otechie.q) {
@@ -64,12 +67,13 @@ function init ({ username, account, workspace }) {
   if (iframe.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
     iframe.src = url
+    popup.src = `${process.env.APP_URL}/${teamId}/popup`
   }
 }
 
 function setColor ({ color }) {
   if (!bubble) return
-  bubble.style.backgroundColor = color
+  // bubble.style.backgroundColor = color
 }
 
 function hide () {
@@ -99,7 +103,7 @@ function messageReceived (event) {
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
     case 'SET_COLOR':
-      bubble.style.backgroundColor = event.data.color
+      // bubble.style.backgroundColor = event.data.color
       index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:

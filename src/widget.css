@@ -17,16 +17,38 @@
     user-select: none;
 }
 
-.OtechieWidget--popup {
+.OtechieWidget--message {
     overflow: hidden;
     bottom: 88px;
     right: 20px;
-    z-index: 10000;
     position: fixed;
-    width: 286px;
     border-radius: 8px;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
+    width: 286px;
+}
+
+.OtechieWidget--popup {
+    /*transform: translate(0, 16px);*/
+    transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear, z-index 0.15s 0.15s linear;
+    visibility: hidden;
+    opacity: 0;
+    overflow: hidden;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    top: 0;
+    z-index: 10006;
+    position: fixed;
+    border: none;
+    height: 100%;
+    width: 100%;
+}
+
+.OtechieWidget--avatar {
+    border-radius: 50%;
+    height: 56px;
+    width: 56px;
 }
 
 .OtechieWidget--video {
@@ -49,17 +71,26 @@
     transition: opacity 0.3s linear, transform 0.3s ease-out;
     opacity: 1;
     transform: none !important;
+    /*visibility: visible;*/
+}
+
+.OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--popup {
+    z-index: 10006;
+    transition: opacity 0.3s linear, transform 0.3s ease-out;
+    opacity: 1;
+    transform: none !important;
     visibility: visible;
 }
 
 .OtechieWidget--bubble {
+    background: linear-gradient(45deg, #833ab4, #c13584, #e1306c);
+    padding: 2px;
+    /*border: 2px red solid;*/
+    border-radius: 50%;
     z-index: 10003;
     position: fixed;
     bottom: 20px;
     right: 20px;
-    height: 52px;
-    width: 52px;
-    border-radius: 12px;
     color: white;
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
     visibility: hidden;
@@ -67,7 +98,12 @@
     transition: opacity 0.3s linear;
     overflow: hidden;
     opacity: 0;
-    border: none;
+}
+
+.OtechieWidget--inner-bubble {
+    background-color: white;
+    padding: 2px;
+    border-radius: 50%;
 }
 
 .OtechieWidget--fade {
