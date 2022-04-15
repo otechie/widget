@@ -128,14 +128,7 @@
     opacity: .1;
 }
 
-.OtechieWidget--loaded.OtechieWidget--video-opened .OtechieWidget--bubble {
-    visibility: visible;
-    cursor: pointer;
-    opacity: 1;
-    transition: opacity 0.15s linear 0.5s;
-}
-
-.OtechieWidget--loaded .OtechieWidget--video-bubble {
+.OtechieWidget--loaded .OtechieWidget--bubble {
     visibility: visible;
     cursor: pointer;
     opacity: 1;
@@ -170,9 +163,25 @@
     transition: opacity 0.15s linear, transform 0.15s ease-in;
 }
 
-.OtechieWidget--video-opened .OtechieWidget--video-bubble {
-    opacity: 0;
+.OtechieWidget--loaded .OtechieWidget--bubble {
+    visibility: visible;
+    cursor: pointer;
+    opacity: 1;
+    transition: opacity 0.15s linear 0.5s;
+}
+
+.OtechieWidget--show-story .OtechieWidget--bubble {
     visibility: hidden;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.15s linear 0.5s;
+}
+
+.OtechieWidget--loaded.OtechieWidget--show-story .OtechieWidget--video-bubble {
+    opacity: 1;
+    visibility: visible;
+    cursor: pointer;
+    transition: opacity 0.15s linear 0.5s;
 }
 
 .OtechieWidget--x {

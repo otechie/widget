@@ -118,7 +118,7 @@ function messageReceived (event) {
       bubble.style.backgroundColor = workspace.color
       if (workspace.video) {
         avatar.src = workspace.avatarUrl
-        index.classList.add('OtechieWidget--has-video')
+        index.classList.add('OtechieWidget--show-story')
       }
       index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
@@ -138,7 +138,7 @@ function toggle () {
 function openVideo () {
   storedScroll = window.scrollY
   index.classList.add('OtechieWidget--video-open')
-  index.classList.add('OtechieWidget--video-opened')
+  index.classList.remove('OtechieWidget--show-story')
   body.classList.add('OtechieWidget--lock')
   popup.contentWindow.focus()
 }
