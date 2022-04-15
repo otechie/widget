@@ -8,6 +8,7 @@ let index
 let bubble
 let onSubmittedFunction
 let storedScroll = 0
+let videoBubble
 
 function app (window) {
   index = document.createElement('div')
@@ -19,6 +20,9 @@ function app (window) {
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
   bubble.onclick = toggle
+
+  videoBubble = document.getElementsByClassName('OtechieWidget--video-bubble')[0]
+  videoBubble.onclick = openVideo
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   popup = document.getElementsByClassName('OtechieWidget--popup')[0]
@@ -73,7 +77,7 @@ function init ({ username, account, workspace }) {
 
 function setColor ({ color }) {
   if (!bubble) return
-  // bubble.style.backgroundColor = color
+  bubble.style.backgroundColor = color
 }
 
 function hide () {
@@ -97,13 +101,15 @@ function messageReceived (event) {
       return close()
     case 'CLOSE_WIDGET':
       return close()
+    case 'CLOSE_VIDEO':
+      return closeVideo()
     case 'TOGGLE':
       return toggle()
     case 'ON_SUBMITTED':
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
     case 'SET_COLOR':
-      // bubble.style.backgroundColor = event.data.color
+      bubble.style.backgroundColor = event.data.color
       index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
@@ -117,6 +123,26 @@ function toggle () {
   } else {
     open()
   }
+}
+
+function openVideo () {
+  storedScroll = window.scrollY
+  index.classList.add('OtechieWidget--video-open')
+  index.classList.add('OtechieWidget--video-opened')
+  body.classList.add('OtechieWidget--lock')
+}
+
+function closeVideo () {
+  index.classList.remove('OtechieWidget--video-open')
+  body.classList.remove('OtechieWidget--lock')
+  if (window.innerWidth < 768) {
+    window.scrollTo({
+      top: storedScroll,
+      left: 0,
+      behavior: 'auto'
+    })
+  }
+  open()
 }
 
 function open (args) {
