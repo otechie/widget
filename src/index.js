@@ -9,6 +9,8 @@ let bubble
 let onSubmittedFunction
 let storedScroll = 0
 let videoBubble
+let avatar
+let workspace
 
 function app (window) {
   index = document.createElement('div')
@@ -26,6 +28,7 @@ function app (window) {
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   popup = document.getElementsByClassName('OtechieWidget--popup')[0]
+  avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
 
   window.onmessage = messageReceived
   const otechie = window.Otechie
@@ -67,7 +70,7 @@ function main (type, args) {
 function init ({ username, account, workspace }) {
   index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
-  const url = `${process.env.APP_URL}/${teamId}/widget`
+  const url = `${process.env.APP_URL}/${teamId}/widget?href=${encodeURIComponent(window.location.href)}`
   if (iframe.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
     iframe.src = url
@@ -103,13 +106,20 @@ function messageReceived (event) {
       return close()
     case 'CLOSE_VIDEO':
       return closeVideo()
+    case 'OPEN_VIDEO':
+      return openVideo()
     case 'TOGGLE':
       return toggle()
     case 'ON_SUBMITTED':
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
-    case 'SET_COLOR':
-      bubble.style.backgroundColor = event.data.color
+    case 'LOADED':
+      workspace = event.data.workspace
+      bubble.style.backgroundColor = workspace.color
+      if (workspace.video) {
+        avatar.src = workspace.avatarUrl
+        index.classList.add('OtechieWidget--has-video')
+      }
       index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
@@ -130,6 +140,7 @@ function openVideo () {
   index.classList.add('OtechieWidget--video-open')
   index.classList.add('OtechieWidget--video-opened')
   body.classList.add('OtechieWidget--lock')
+  popup.contentWindow.focus()
 }
 
 function closeVideo () {
