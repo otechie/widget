@@ -27,7 +27,7 @@ function app (window) {
   videoBubble.onclick = openVideo
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
-  popup = document.getElementsByClassName('OtechieWidget--popup')[0]
+  popup = document.getElementsByClassName('OtechieWidget--video')[0]
   avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
 
   window.onmessage = messageReceived
@@ -117,7 +117,7 @@ function messageReceived (event) {
       workspace = event.data.workspace
       bubble.style.backgroundColor = workspace.color
       if (workspace.video) {
-        avatar.src = workspace.avatarUrl
+        avatar.src = workspace.users[0].avatarUrl
         index.classList.add('OtechieWidget--show-story')
       }
       index.classList.add('OtechieWidget--loaded')

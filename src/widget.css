@@ -17,7 +17,7 @@
     user-select: none;
 }
 
-.OtechieWidget--popup {
+.OtechieWidget--video {
     transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear, z-index 0.15s 0.15s linear;
     visibility: hidden;
     opacity: 0;
@@ -37,6 +37,9 @@
     border-radius: 50%;
     height: 56px;
     width: 56px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
 }
 
 .OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--iframe {
@@ -47,7 +50,7 @@
     visibility: visible;
 }
 
-.OtechieWidget--loaded.OtechieWidget--video-open .OtechieWidget--popup {
+.OtechieWidget--loaded.OtechieWidget--video-open .OtechieWidget--video {
     z-index: 10006;
     transition: opacity 0.3s linear, transform 0.3s ease-out;
     opacity: 1;
@@ -56,8 +59,6 @@
 }
 
 .OtechieWidget--video-bubble {
-    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%);
-    padding: 2px;
     border-radius: 50%;
     z-index: 10003;
     position: fixed;
@@ -67,22 +68,15 @@
     visibility: hidden;
     user-select: none;
     transition: opacity 0.3s linear;
-    overflow: hidden;
     opacity: 0;
-    animation: rotation 2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: 5;
-    animation-delay: 30s;
 }
 
-.OtechieWidget--inner-bubble {
-    background-color: white;
-    padding: 1px;
-    border-radius: 50%;
+.OtechieWidget--video-glow {
+    width: 100%;
+    height: 100%;
     animation: rotation 2s;
-    animation-direction: reverse;
     animation-timing-function: ease-in-out;
-    animation-iteration-count: 5;
+    animation-iteration-count: 8;
     animation-delay: 30s;
 }
 
