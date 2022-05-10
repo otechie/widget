@@ -138,13 +138,11 @@ function closeVideo () {
   index.classList.remove('OtechieWidget--video-open')
   index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
-  if (window.innerWidth < 768) {
-    window.scrollTo({
-      top: storedScroll,
-      left: 0,
-      behavior: 'auto'
-    })
-  }
+  window.scrollTo({
+    top: storedScroll,
+    left: 0,
+    behavior: 'auto'
+  })
   open()
 }
 
@@ -161,13 +159,11 @@ function open (args) {
 function close () {
   index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
-  if (window.innerWidth < 768) {
-    window.scrollTo({
-      top: storedScroll,
-      left: 0,
-      behavior: 'auto'
-    })
-  }
+  window.scrollTo({
+    top: storedScroll,
+    left: 0,
+    behavior: 'auto'
+  })
 }
 
 function reset () {

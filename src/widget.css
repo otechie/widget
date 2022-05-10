@@ -81,9 +81,8 @@
     transition: opacity 0.15s linear 0.5s;
 }
 
-@media (max-device-width: 767px) {
-    .OtechieWidget--lock {
-        overflow: hidden;
-        position: fixed;
-    }
+.OtechieWidget--lock {
+    overflow: hidden;
+    position: fixed;
 }
+
