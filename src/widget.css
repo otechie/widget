@@ -1,23 +1,5 @@
-.OtechieWidget--iframe {
-    z-index: 10002;
-    position: fixed;
-    bottom: 88px;
-    right: 20px;
-    opacity: 0;
-    transform: translate(0, 16px);
-    transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear, z-index 0.15s 0.15s linear;
-    visibility: hidden;
-    width: 386px;
-    box-shadow: rgba(0, 0, 0, 0.16) 0 5px 40px;
-    border-radius: 12px;
-    height: calc(100% - 120px);
-    max-height: 700px;
-    border: none;
-    overflow: hidden;
-    user-select: none;
-}
-
 .OtechieWidget--video {
+    transform: translate(0, 16px);
     transition: opacity 0.15s linear, transform 0.15s ease-in, visibility 0.15s linear, z-index 0.15s 0.15s linear;
     visibility: hidden;
     opacity: 0;
@@ -42,14 +24,6 @@
     right: 24px;
 }
 
-.OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--iframe {
-    z-index: 10002;
-    transition: opacity 0.3s linear, transform 0.3s ease-out;
-    opacity: 1;
-    transform: none !important;
-    visibility: visible;
-}
-
 .OtechieWidget--loaded.OtechieWidget--video-open .OtechieWidget--video {
     z-index: 10006;
     transition: opacity 0.3s linear, transform 0.3s ease-out;
@@ -58,7 +32,7 @@
     visibility: visible;
 }
 
-.OtechieWidget--video-bubble {
+.OtechieWidget--bubble {
     border-radius: 50%;
     z-index: 10003;
     position: fixed;
@@ -89,39 +63,6 @@
     }
 }
 
-.OtechieWidget--bubble {
-    z-index: 10003;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    height: 52px;
-    width: 52px;
-    border-radius: 12px;
-    color: white;
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, .4);
-    visibility: hidden;
-    user-select: none;
-    transition: opacity 0.3s linear;
-    overflow: hidden;
-    opacity: 0;
-    border: none;
-}
-
-
-.OtechieWidget--fade {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: black;
-    opacity: 0;
-}
-
-.OtechieWidget--bubble:hover .OtechieWidget--fade {
-    opacity: .1;
-}
-
 .OtechieWidget--loaded .OtechieWidget--bubble {
     visibility: visible;
     cursor: pointer;
@@ -133,89 +74,14 @@
     visibility: hidden;
 }
 
-.OtechieWidget--hide .OtechieWidget--video-bubble {
-    visibility: hidden;
-}
-
-.OtechieWidget--icon {
-    user-select: none;
-    margin: 10px;
-    display: block;
-    opacity: 1;
-    transform: none;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
-}
-
-.OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--icon {
-    transform: scale(0.2) rotate(30deg);
-    opacity: 0;
-    transition: opacity 0.15s linear, transform 0.15s ease-in;
-}
-
 .OtechieWidget--loaded .OtechieWidget--bubble {
-    visibility: visible;
-    cursor: pointer;
-    opacity: 1;
-    transition: opacity 0.15s linear 0.5s;
-}
-
-.OtechieWidget--show-story .OtechieWidget--bubble {
-    visibility: hidden;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.15s linear 0.5s;
-}
-
-.OtechieWidget--loaded.OtechieWidget--show-story .OtechieWidget--video-bubble {
     opacity: 1;
     visibility: visible;
     cursor: pointer;
     transition: opacity 0.15s linear 0.5s;
 }
-
-.OtechieWidget--x {
-    user-select: none;
-    margin: 12px 8px 16px 16px;
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    transform: scale(0.2) rotate(-30deg);
-    /*transition: opacity 0.15s linear 0.02s, transform 0.15s ease-in 0.02s;*/
-}
-
-.OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--x {
-    opacity: 1;
-    transform: none;
-    transition: opacity 0.15s 0.15s linear, transform 0.15s 0.15s ease-out;
-}
-
 
 @media (max-device-width: 767px) {
-    .OtechieWidget--iframe {
-        z-index: -10000;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: 0;
-    }
-
-    .OtechieWidget--loaded.OtechieWidget--open .OtechieWidget--bubble {
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s linear;
-    }
-
     .OtechieWidget--lock {
         overflow: hidden;
         position: fixed;

@@ -96,7 +96,7 @@
     if (w.attachEvent) {w.attachEvent('onload', l)} else {w.addEventListener('load', l, false)}
   }(window, document, 'script', 'Otechie', `./index.js`))
   Otechie('init', { account: 'otechie' })
-  Otechie('open', { delay: 500 })
+  // Otechie('open', { delay: 500 })
   Otechie('onSubmitted', function ({ success, err }) {
     console.log('==== onSubmitted', success, err)
   })
