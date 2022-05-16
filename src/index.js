@@ -71,11 +71,6 @@ function init ({ username, account, workspace }) {
   }
 }
 
-function setColor ({ color }) {
-  // if (!bubble) return
-  // bubble.style.backgroundColor = color
-}
-
 function hide () {
   if (!index) return
   index.classList.remove('OtechieWidget--open')
@@ -91,12 +86,6 @@ function messageReceived (event) {
   if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
-    case 'OPEN':
-      return open()
-    case 'CLOSE':
-      return close()
-    case 'CLOSE_WIDGET':
-      return close()
     case 'CLOSE_VIDEO':
       return closeVideo()
     case 'OPEN_VIDEO':
@@ -120,10 +109,10 @@ function messageReceived (event) {
 }
 
 function toggle () {
-  if (index.classList.contains('OtechieWidget--open')) {
-    close()
+  if (index.classList.contains('OtechieWidget--video-open')) {
+    closeVideo()
   } else {
-    open()
+    openVideo()
   }
 }
 
@@ -144,26 +133,6 @@ function closeVideo () {
     behavior: 'auto'
   })
   open()
-}
-
-function open (args) {
-  const delay = args && args.delay ? args.delay : 0
-  setTimeout(function () {
-    storedScroll = window.scrollY
-    index.classList.add('OtechieWidget--open')
-    body.classList.add('OtechieWidget--lock')
-    popup.contentWindow.focus()
-  }, delay)
-}
-
-function close () {
-  index.classList.remove('OtechieWidget--open')
-  body.classList.remove('OtechieWidget--lock')
-  window.scrollTo({
-    top: storedScroll,
-    left: 0,
-    behavior: 'auto'
-  })
 }
 
 function reset () {
