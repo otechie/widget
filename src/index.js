@@ -44,16 +44,12 @@ function main (type, args) {
       return hide()
     case 'show':
       return show()
-    case 'open':
-      return open(args)
     case 'toggle':
       return toggle()
     case 'close':
       return close()
     case 'reset':
       return reset()
-    case 'setColor':
-      return setColor(args)
     case 'update':
       return popup.contentWindow.postMessage({ message: 'UPDATE' }, '*')
     default:
@@ -73,7 +69,7 @@ function init ({ username, account, workspace }) {
 
 function hide () {
   if (!index) return
-  index.classList.remove('OtechieWidget--open')
+  index.classList.remove('OtechieWidget--video-open')
   index.classList.add('OtechieWidget--hide')
 }
 
@@ -97,7 +93,6 @@ function messageReceived (event) {
       return onSubmittedFunction(event.data)
     case 'LOADED':
       workspace = event.data.workspace
-      // bubble.style.backgroundColor = workspace.color
       if (workspace.video) {
         avatar.src = workspace.users[0].avatarUrl
       }
@@ -121,18 +116,18 @@ function openVideo () {
   index.classList.add('OtechieWidget--video-open')
   body.classList.add('OtechieWidget--lock')
   popup.contentWindow.focus()
+  popup.contentWindow.postMessage({ message: 'PLAY' }, '*')
 }
 
 function closeVideo () {
+  console.log('=== closeVideo')
   index.classList.remove('OtechieWidget--video-open')
-  index.classList.remove('OtechieWidget--open')
   body.classList.remove('OtechieWidget--lock')
   window.scrollTo({
     top: storedScroll,
     left: 0,
     behavior: 'auto'
   })
-  open()
 }
 
 function reset () {
