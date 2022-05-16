@@ -93,7 +93,7 @@ function messageReceived (event) {
       return onSubmittedFunction(event.data)
     case 'LOADED':
       workspace = event.data.workspace
-      if (workspace.video) {
+      if (workspace.users.length > 0) {
         avatar.src = workspace.users[0].avatarUrl
       }
       index.classList.add('OtechieWidget--loaded')
