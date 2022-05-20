@@ -60,10 +60,10 @@ function main (type, args) {
 function init ({ username, account, workspace }) {
   index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
-  const url = `${process.env.APP_URL}/${teamId}/widget?href=${encodeURIComponent(window.location.href)}`
+  const url = `${process.env.APP_URL}/${teamId}?href=${encodeURIComponent(window.location.href)}`
   if (popup.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
-    popup.src = `${process.env.APP_URL}/${teamId}/popup`
+    popup.src = url
   }
 }
 
