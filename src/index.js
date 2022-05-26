@@ -1,12 +1,14 @@
 import html from './widget.html'
 import './widget.css'
 
-let iframe
+let popup
 let body
 let index
-let bubble
 let onSubmittedFunction
 let storedScroll = 0
+let bubble
+let avatar
+let workspace
 
 function app (window) {
   index = document.createElement('div')
@@ -17,9 +19,11 @@ function app (window) {
   body.appendChild(index)
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = toggle
+  bubble.onclick = openVideo
 
-  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  popup = document.getElementsByClassName('OtechieWidget--video')[0]
+  avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
+
   window.onmessage = messageReceived
   const otechie = window.Otechie
   if (otechie && otechie.q) {
@@ -40,18 +44,14 @@ function main (type, args) {
       return hide()
     case 'show':
       return show()
-    case 'open':
-      return open(args)
     case 'toggle':
       return toggle()
     case 'close':
       return close()
     case 'reset':
       return reset()
-    case 'setColor':
-      return setColor(args)
     case 'update':
-      return iframe.contentWindow.postMessage({ message: 'UPDATE' }, '*')
+      return popup.contentWindow.postMessage({ message: 'UPDATE' }, '*')
     default:
       return
   }
@@ -60,21 +60,16 @@ function main (type, args) {
 function init ({ username, account, workspace }) {
   index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
-  const url = `${process.env.APP_URL}/${teamId}/widget`
-  if (iframe.src !== url) {
+  const url = `${process.env.APP_URL}/${teamId}?href=${encodeURIComponent(window.location.href)}`
+  if (popup.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
-    iframe.src = url
+    popup.src = url
   }
-}
-
-function setColor ({ color }) {
-  if (!bubble) return
-  bubble.style.backgroundColor = color
 }
 
 function hide () {
   if (!index) return
-  index.classList.remove('OtechieWidget--open')
+  index.classList.remove('OtechieWidget--video-open')
   index.classList.add('OtechieWidget--hide')
 }
 
@@ -87,19 +82,20 @@ function messageReceived (event) {
   if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
-    case 'OPEN':
-      return open()
-    case 'CLOSE':
-      return close()
-    case 'CLOSE_WIDGET':
-      return close()
+    case 'CLOSE_VIDEO':
+      return closeVideo()
+    case 'OPEN_VIDEO':
+      return openVideo()
     case 'TOGGLE':
       return toggle()
     case 'ON_SUBMITTED':
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
-    case 'SET_COLOR':
-      bubble.style.backgroundColor = event.data.color
+    case 'LOADED':
+      workspace = event.data.workspace
+      if (workspace.users.length > 0) {
+        avatar.src = workspace.users[0].avatarUrl
+      }
       index.classList.add('OtechieWidget--loaded')
       return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
     default:
@@ -108,45 +104,42 @@ function messageReceived (event) {
 }
 
 function toggle () {
-  if (index.classList.contains('OtechieWidget--open')) {
-    close()
+  if (index.classList.contains('OtechieWidget--video-open')) {
+    closeVideo()
   } else {
-    open()
+    openVideo()
   }
 }
 
-function open (args) {
-  const delay = args && args.delay ? args.delay : 0
-  setTimeout(function () {
-    storedScroll = window.scrollY
-    index.classList.add('OtechieWidget--open')
-    body.classList.add('OtechieWidget--lock')
-    iframe.contentWindow.focus()
-  }, delay)
+function openVideo () {
+  storedScroll = window.scrollY
+  index.classList.add('OtechieWidget--video-open')
+  body.classList.add('OtechieWidget--lock')
+  popup.contentWindow.focus()
+  popup.contentWindow.postMessage({ message: 'PLAY' }, '*')
 }
 
-function close () {
-  index.classList.remove('OtechieWidget--open')
+function closeVideo () {
+  console.log('=== closeVideo')
+  index.classList.remove('OtechieWidget--video-open')
   body.classList.remove('OtechieWidget--lock')
-  if (window.innerWidth < 768) {
-    window.scrollTo({
-      top: storedScroll,
-      left: 0,
-      behavior: 'auto'
-    })
-  }
+  window.scrollTo({
+    top: storedScroll,
+    left: 0,
+    behavior: 'auto'
+  })
 }
 
 function reset () {
-  const url = iframe.src
-  iframe.src = null
+  const url = popup.src
+  popup.src = null
   index.classList.remove('OtechieWidget--loaded')
-  iframe.contentWindow.postMessage({ message: 'RESET' }, '*')
-  iframe.src = url
+  popup.contentWindow.postMessage({ message: 'RESET' }, '*')
+  popup.src = url
 }
 
 function submit (form) {
-  return iframe.contentWindow.postMessage({ message: 'SUBMIT', form }, '*')
+  return popup.contentWindow.postMessage({ message: 'SUBMIT', form }, '*')
 }
 
 function onSubmitted (args) {
