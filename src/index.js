@@ -4,11 +4,13 @@ import './widget.css'
 let popup
 let body
 let index
-let onSubmittedFunction
 let storedScroll = 0
 let bubble
 let avatar
 let workspace
+
+let onSubmittedFunction
+let onLoadedFunction
 
 function app (window) {
   index = document.createElement('div')
@@ -40,6 +42,8 @@ function main (type, args) {
       return submit(args)
     case 'onSubmitted':
       return onSubmitted(args)
+    case 'onLoaded':
+      return onLoaded(args)
     case 'hide':
       return hide()
     case 'show':
@@ -97,7 +101,10 @@ function messageReceived (event) {
         avatar.src = workspace.users[0].avatarUrl
       }
       index.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
+      event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
+      if (onLoadedFunction) {
+        onLoadedFunction()
+      }
     default:
       return
   }
@@ -147,6 +154,14 @@ function onSubmitted (args) {
     onSubmittedFunction = args
   } else {
     console.error('onSubmitted must be a function')
+  }
+}
+
+function onLoaded (args) {
+  if (typeof args === 'function') {
+    onLoadedFunction = args
+  } else {
+    console.error('onLoaded must be a function')
   }
 }
 
