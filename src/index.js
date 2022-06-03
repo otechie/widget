@@ -12,6 +12,17 @@ let workspace
 let onSubmittedFunction
 let onLoadedFunction
 
+let lastUrl = location.href
+new MutationObserver(() => {
+  if (location.href !== lastUrl && popup) {
+    lastUrl = location.href
+    popup.contentWindow.postMessage({
+      message: 'LOADED_PAGE',
+      href: location.href
+    }, '*')
+  }
+}).observe(document, { subtree: true, childList: true })
+
 function app (window) {
   index = document.createElement('div')
   index.id = 'otechie-widget'
@@ -101,7 +112,7 @@ function messageReceived (event) {
         avatar.src = workspace.users[0].avatarUrl
       }
       index.classList.add('OtechieWidget--loaded')
-      event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
+      event.source.postMessage({ message: 'LOADED_PAGE', href: window.location.href }, '*')
       if (onLoadedFunction) {
         onLoadedFunction()
       }
