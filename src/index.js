@@ -134,7 +134,6 @@ function openVideo () {
   index.classList.add('OtechieWidget--video-open')
   body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
-  iframe.contentWindow.postMessage({ message: 'PLAY' }, '*')
 }
 
 function closeVideo () {
