@@ -1,7 +1,7 @@
 import html from './widget.html'
 import './widget.css'
 
-let popup
+let iframe
 let body
 let index
 let storedScroll = 0
@@ -14,9 +14,9 @@ let onLoadedFunction
 
 let lastUrl = location.href
 new MutationObserver(() => {
-  if (location.href !== lastUrl && popup) {
+  if (location.href !== lastUrl && iframe) {
     lastUrl = location.href
-    popup.contentWindow.postMessage({
+    iframe.contentWindow.postMessage({
       message: 'LOADED_PAGE',
       href: location.href
     }, '*')
@@ -34,7 +34,7 @@ function app (window) {
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
   bubble.onclick = openVideo
 
-  popup = document.getElementsByClassName('OtechieWidget--video')[0]
+  iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
 
   window.onmessage = messageReceived
@@ -66,7 +66,7 @@ function main (type, args) {
     case 'reset':
       return reset()
     case 'update':
-      return popup.contentWindow.postMessage({ message: 'UPDATE' }, '*')
+      return iframe.contentWindow.postMessage({ message: 'UPDATE' }, '*')
     default:
       return
   }
@@ -76,9 +76,9 @@ function init ({ username, account, workspace }) {
   index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
   const url = `${process.env.APP_URL}/${teamId}?href=${encodeURIComponent(window.location.href)}`
-  if (popup.src !== url) {
+  if (iframe.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
-    popup.src = url
+    iframe.src = url
   }
 }
 
@@ -133,8 +133,8 @@ function openVideo () {
   storedScroll = window.scrollY
   index.classList.add('OtechieWidget--video-open')
   body.classList.add('OtechieWidget--lock')
-  popup.contentWindow.focus()
-  popup.contentWindow.postMessage({ message: 'PLAY' }, '*')
+  iframe.contentWindow.focus()
+  iframe.contentWindow.postMessage({ message: 'PLAY' }, '*')
 }
 
 function closeVideo () {
@@ -149,15 +149,15 @@ function closeVideo () {
 }
 
 function reset () {
-  const url = popup.src
-  popup.src = null
+  const url = iframe.src
+  iframe.src = null
   index.classList.remove('OtechieWidget--loaded')
-  popup.contentWindow.postMessage({ message: 'RESET' }, '*')
-  popup.src = url
+  iframe.contentWindow.postMessage({ message: 'RESET' }, '*')
+  iframe.src = url
 }
 
 function submit (form) {
-  return popup.contentWindow.postMessage({ message: 'SUBMIT', form }, '*')
+  return iframe.contentWindow.postMessage({ message: 'SUBMIT', form }, '*')
 }
 
 function onSubmitted (args) {
