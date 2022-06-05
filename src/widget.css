@@ -1,22 +1,5 @@
-/*.OtechieWidget--video {*/
-/*    transform: translate(0, 16px);*/
-/*    transition: opacity 0.15s linear, transform 0.15s ease-in-out, visibility 0.15s linear, z-index 0.15s 0.15s linear;*/
-/*    visibility: hidden;*/
-/*    opacity: 0;*/
-/*    overflow: hidden;*/
-/*    bottom: 0;*/
-/*    right: 0;*/
-/*    left: 0;*/
-/*    top: 0;*/
-/*    z-index: 10006;*/
-/*    position: fixed;*/
-/*    border: none;*/
-/*    height: 100%;*/
-/*    width: 100%;*/
-/*}*/
-
 .OtechieWidget--iframe {
-    z-index: 10002;
+    z-index: 10000012;
     position: fixed;
     bottom: 0;
     top: 0;
@@ -43,7 +26,7 @@
 }
 
 .OtechieWidget--loaded.OtechieWidget--video-open .OtechieWidget--iframe {
-    z-index: 10006;
+    z-index: 10000016;
     transition: opacity 0.3s linear, transform 0.3s ease-in-out;
     opacity: 1;
     transform: none !important;
@@ -52,7 +35,7 @@
 
 .OtechieWidget--bubble {
     border-radius: 50%;
-    z-index: 10003;
+    z-index: 10000013;
     position: fixed;
     bottom: 20px;
     right: 20px;
