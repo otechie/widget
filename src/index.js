@@ -4,9 +4,24 @@ import './widget.css'
 let iframe
 let body
 let index
-let bubble
-let onSubmittedFunction
 let storedScroll = 0
+let bubble
+let avatar
+let workspace
+
+let onSubmittedFunction
+let onLoadedFunction
+
+let lastUrl = location.href
+new MutationObserver(() => {
+  if (location.href !== lastUrl && iframe) {
+    lastUrl = location.href
+    iframe.contentWindow.postMessage({
+      message: 'LOADED_PAGE',
+      href: location.href
+    }, '*')
+  }
+}).observe(document, { subtree: true, childList: true })
 
 function app (window) {
   index = document.createElement('div')
@@ -17,9 +32,11 @@ function app (window) {
   body.appendChild(index)
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = toggle
+  bubble.onclick = openVideo
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
+  avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
+
   window.onmessage = messageReceived
   const otechie = window.Otechie
   if (otechie && otechie.q) {
@@ -36,20 +53,18 @@ function main (type, args) {
       return submit(args)
     case 'onSubmitted':
       return onSubmitted(args)
+    case 'onLoaded':
+      return onLoaded(args)
     case 'hide':
       return hide()
     case 'show':
       return show()
-    case 'open':
-      return open(args)
     case 'toggle':
       return toggle()
     case 'close':
       return close()
     case 'reset':
       return reset()
-    case 'setColor':
-      return setColor(args)
     case 'update':
       return iframe.contentWindow.postMessage({ message: 'UPDATE' }, '*')
     default:
@@ -60,21 +75,16 @@ function main (type, args) {
 function init ({ username, account, workspace }) {
   index.classList.remove('OtechieWidget--hide')
   const teamId = account || username || workspace
-  const url = `${process.env.APP_URL}/${teamId}/widget`
+  const url = `${process.env.APP_URL}/${teamId}?href=${encodeURIComponent(window.location.href)}`
   if (iframe.src !== url) {
     index.classList.remove('OtechieWidget--loaded')
     iframe.src = url
   }
 }
 
-function setColor ({ color }) {
-  if (!bubble) return
-  bubble.style.backgroundColor = color
-}
-
 function hide () {
   if (!index) return
-  index.classList.remove('OtechieWidget--open')
+  index.classList.remove('OtechieWidget--video-open')
   index.classList.add('OtechieWidget--hide')
 }
 
@@ -87,54 +97,54 @@ function messageReceived (event) {
   if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
-    case 'OPEN':
-      return open()
-    case 'CLOSE':
-      return close()
-    case 'CLOSE_WIDGET':
-      return close()
+    case 'CLOSE_VIDEO':
+      return closeVideo()
+    case 'OPEN_VIDEO':
+      return openVideo()
     case 'TOGGLE':
       return toggle()
     case 'ON_SUBMITTED':
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
-    case 'SET_COLOR':
-      bubble.style.backgroundColor = event.data.color
+    case 'LOADED':
+      workspace = event.data.workspace
+      if (workspace.users.length > 0) {
+        avatar.src = workspace.users[0].avatarUrl
+      }
       index.classList.add('OtechieWidget--loaded')
-      return event.source.postMessage({ message: 'LOAD_WIDGET', href: window.location.origin }, '*')
+      event.source.postMessage({ message: 'LOADED_PAGE', href: window.location.href }, '*')
+      if (onLoadedFunction) {
+        onLoadedFunction()
+      }
     default:
       return
   }
 }
 
 function toggle () {
-  if (index.classList.contains('OtechieWidget--open')) {
-    close()
+  if (index.classList.contains('OtechieWidget--video-open')) {
+    closeVideo()
   } else {
-    open()
+    openVideo()
   }
 }
 
-function open (args) {
-  const delay = args && args.delay ? args.delay : 0
-  setTimeout(function () {
-    storedScroll = window.scrollY
-    index.classList.add('OtechieWidget--open')
-    body.classList.add('OtechieWidget--lock')
-    iframe.contentWindow.focus()
-  }, delay)
+function openVideo () {
+  storedScroll = window.scrollY
+  index.classList.add('OtechieWidget--video-open')
+  body.classList.add('OtechieWidget--lock')
+  iframe.contentWindow.focus()
 }
 
-function close () {
-  index.classList.remove('OtechieWidget--open')
+function closeVideo () {
+  console.log('=== closeVideo')
+  index.classList.remove('OtechieWidget--video-open')
   body.classList.remove('OtechieWidget--lock')
-  if (window.innerWidth < 768) {
-    window.scrollTo({
-      top: storedScroll,
-      left: 0,
-      behavior: 'auto'
-    })
-  }
+  window.scrollTo({
+    top: storedScroll,
+    left: 0,
+    behavior: 'auto'
+  })
 }
 
 function reset () {
@@ -154,6 +164,14 @@ function onSubmitted (args) {
     onSubmittedFunction = args
   } else {
     console.error('onSubmitted must be a function')
+  }
+}
+
+function onLoaded (args) {
+  if (typeof args === 'function') {
+    onLoadedFunction = args
+  } else {
+    console.error('onLoaded must be a function')
   }
 }
 
