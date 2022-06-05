@@ -137,7 +137,6 @@ function openVideo () {
 }
 
 function closeVideo () {
-  console.log('=== closeVideo')
   index.classList.remove('OtechieWidget--video-open')
   body.classList.remove('OtechieWidget--lock')
   window.scrollTo({
