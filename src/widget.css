@@ -16,6 +16,64 @@
     user-select: none;
 }
 
+.OtechieWidget--x {
+    margin-left: auto;
+    margin-bottom: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 32px;
+    background-color: rgba(0, 0, 0, .4);
+    color: white;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.OtechieWidget--x:hover {
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.OtechieWidget--message-wrapper {
+    z-index: 10000013;
+    position: fixed;
+    bottom: 96px;
+    right: 28px;
+    max-width: 260px;
+    clear: both;
+    box-sizing: border-box;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.OtechieWidget--message {
+    border-radius: 8px 8px 0 8px;
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 2px 6px 2px rgba(0, 0, 0, .3);
+    font-size: 16px;
+    line-height: 1.5;
+    color: #535353;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.OtechieWidget--message::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 4px 0px 0px 13px;
+    border-color: white transparent transparent;
+}
+
+.OtechieWidget--message:hover {
+    background-color: rgb(245, 245, 250);
+}
+
 .OtechieWidget--avatar {
     border-radius: 50%;
     height: 56px;
@@ -31,6 +89,12 @@
     opacity: 1;
     transform: none !important;
     visibility: visible;
+}
+
+.OtechieWidget--loaded.OtechieWidget--show-message .OtechieWidget--message-wrapper {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s linear;
 }
 
 .OtechieWidget--bubble {
@@ -52,10 +116,10 @@
 .OtechieWidget--video-glow {
     width: 100%;
     height: 100%;
-    animation: rotation 2s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: 8;
-    animation-delay: 30s;
+    /*animation: rotation 2s;*/
+    /*animation-timing-function: ease-in-out;*/
+    /*animation-iteration-count: 8;*/
+    /*animation-delay: 30s;*/
 }
 
 @keyframes rotation {

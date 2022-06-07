@@ -8,6 +8,7 @@ let storedScroll = 0
 let bubble
 let avatar
 let workspace
+let message
 
 let onSubmittedFunction
 let onLoadedFunction
@@ -32,12 +33,18 @@ function app (window) {
   body.appendChild(index)
 
   bubble = document.getElementsByClassName('OtechieWidget--bubble')[0]
-  bubble.onclick = openVideo
+  bubble.onclick = openChat
+
+  message = document.getElementsByClassName('OtechieWidget--message')[0]
+  message.onclick = openChat
+
+  let x = document.getElementsByClassName('OtechieWidget--x')[0]
+  x.onclick = clearMessage
 
   iframe = document.getElementsByClassName('OtechieWidget--iframe')[0]
   avatar = document.getElementsByClassName('OtechieWidget--avatar')[0]
 
-  window.onmessage = messageReceived
+  window.onmessage = messageFromChat
   const otechie = window.Otechie
   if (otechie && otechie.q) {
     otechie.q.forEach(command => main(command[0], command[1]))
@@ -93,16 +100,22 @@ function show () {
   index.classList.remove('OtechieWidget--hide')
 }
 
-function messageReceived (event) {
+function messageFromChat (event) {
   if (event.origin !== process.env.APP_URL) return
 
   switch (event.data.message) {
     case 'CLOSE_VIDEO':
-      return closeVideo()
+      return closeChat()
     case 'OPEN_VIDEO':
-      return openVideo()
+      return openChat()
+    case 'CLOSE_CHAT':
+      return closeChat()
+    case 'OPEN_CHAT':
+      return openChat()
     case 'TOGGLE':
       return toggle()
+    case 'SHOW_MESSAGE':
+      return showMessage(event.data.text)
     case 'ON_SUBMITTED':
       if (!onSubmittedFunction) return
       return onSubmittedFunction(event.data)
@@ -121,22 +134,37 @@ function messageReceived (event) {
   }
 }
 
-function toggle () {
-  if (index.classList.contains('OtechieWidget--video-open')) {
-    closeVideo()
+function clearMessage () {
+  index.classList.remove('OtechieWidget--show-message')
+}
+
+function showMessage (text) {
+  console.log('showMessage', text)
+  if (typeof text === 'string') {
+    message.innerHTML = text
+    index.classList.add('OtechieWidget--show-message')
   } else {
-    openVideo()
+    console.error('showMessage must be called with a string')
   }
 }
 
-function openVideo () {
+function toggle () {
+  if (index.classList.contains('OtechieWidget--video-open')) {
+    closeChat()
+  } else {
+    openChat()
+  }
+}
+
+function openChat () {
   storedScroll = window.scrollY
   index.classList.add('OtechieWidget--video-open')
   body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
+  clearMessage()
 }
 
-function closeVideo () {
+function closeChat () {
   index.classList.remove('OtechieWidget--video-open')
   body.classList.remove('OtechieWidget--lock')
   window.scrollTo({
