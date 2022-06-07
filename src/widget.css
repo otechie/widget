@@ -83,7 +83,7 @@
     right: 24px;
 }
 
-.OtechieWidget--loaded.OtechieWidget--video-open .OtechieWidget--iframe {
+.OtechieWidget--loaded.OtechieWidget--chat-open .OtechieWidget--iframe {
     z-index: 10000016;
     transition: opacity 0.3s linear, transform 0.3s ease-in-out;
     opacity: 1;

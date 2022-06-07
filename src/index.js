@@ -91,7 +91,7 @@ function init ({ username, account, workspace }) {
 
 function hide () {
   if (!index) return
-  index.classList.remove('OtechieWidget--video-open')
+  index.classList.remove('OtechieWidget--chat-open')
   index.classList.add('OtechieWidget--hide')
 }
 
@@ -139,7 +139,9 @@ function clearMessage () {
 }
 
 function showMessage (text) {
-  console.log('showMessage', text)
+  if (index.classList.contains('OtechieWidget--chat-open')) {
+    return
+  }
   if (typeof text === 'string') {
     message.innerHTML = text
     index.classList.add('OtechieWidget--show-message')
@@ -149,7 +151,7 @@ function showMessage (text) {
 }
 
 function toggle () {
-  if (index.classList.contains('OtechieWidget--video-open')) {
+  if (index.classList.contains('OtechieWidget--chat-open')) {
     closeChat()
   } else {
     openChat()
@@ -158,14 +160,14 @@ function toggle () {
 
 function openChat () {
   storedScroll = window.scrollY
-  index.classList.add('OtechieWidget--video-open')
+  index.classList.add('OtechieWidget--chat-open')
   body.classList.add('OtechieWidget--lock')
   iframe.contentWindow.focus()
   clearMessage()
 }
 
 function closeChat () {
-  index.classList.remove('OtechieWidget--video-open')
+  index.classList.remove('OtechieWidget--chat-open')
   body.classList.remove('OtechieWidget--lock')
   window.scrollTo({
     top: storedScroll,
