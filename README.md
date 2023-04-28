@@ -12,7 +12,7 @@ Paste the code below before the </head> tag on your website where you want the c
     Otechie('init', { account: 'ACCOUNT_ID' });
 </script>
 ```
-
+.
 You can find the code with your ACCOUNT_ID prefilled at at https://app.otechie.com/c#widget or by going to Settings > Chat Widget.
 
 
